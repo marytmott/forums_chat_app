@@ -1,5 +1,5 @@
 ###Project Idea
-- App called “Contact”(maybe?) which will allow for dynamic forum posting and real-time chat of online users
+- App which will allow for dynamic forum posting and real-time chat of online users
 
 ###Project Scope
 - Users will need to be logged in to see content
@@ -16,8 +16,11 @@
 - [Avatars.io](http://avatars.io/) api will be used to allow users to upload their own avatar
 - [Socket.io](http://socket.io/) will be used to integrate real-time features
 
-- Project Stretch Goal - allow some users to be admins to set a message loaded on each page or feature a particular post(s)
-  - user admins can make other uses admins as well.
+####Project Stretch Goals
+- users can save main post links to a "favorites"-type list
+- allow some users to be admins to set a message loaded on every page or feature a particular post(s)
+  - admins can make new forums
+  - user admins can make other uses admins as well
 
 ###Models
 ####User
@@ -39,13 +42,24 @@
   - delete users child posts
   - delete users child comments
 
+####Forums
+*preset or only to be modified by site admin (stretch goal)*
+1. title (required)
+2. created (date, now)
+3. last updated (date)
+4. posts (array of schema id to child posts)
+
+- pre-remove:
+  - delete child posts
+
 ####Post
 1. title (required, maxlength, unique?)
 2. content (required, maxlength?)
 3. created (date, now)
 4. last updated (date)
-5. author (schema id to user)
-6. comments (array of schema id to child comments)
+5. forum (schema id to parent forum)
+6. author (schema id to user)
+7. comments (array of schema id to child comments)
 
 - pre-remove:
   - delete child comments from db
