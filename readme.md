@@ -13,10 +13,10 @@
 - Users will be able to see who else is currently logged in
   - project stretch goal: users will be able to have direct message chat w/ another user or group of users
 
-###Project Module/API Highlights
-- [Avatars.io](http://avatars.io/) to allow users to upload their own avatar
-- [Socket.io](http://socket.io/) to integrate real-time features
-- [ejs](https://www.npmjs.com/package/ejs) view engine
+###Project API/Module Highlights
+- [Avatars.io](http://avatars.io/) - allow users to upload their own avatar
+- [Socket.io](http://socket.io/) - integrate real-time features
+- [ejs](https://www.npmjs.com/package/ejs) - view engine
 
 ###Project Stretch Goals
 - users can save links to posts (and forums too?) to a "favorites"-type list
