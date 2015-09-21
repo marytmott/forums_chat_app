@@ -10,19 +10,13 @@ app.set('view-engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
-app.register
 
+app.use(session({
+  //no maxAge and activeDuraction so user can stay logged in for chat and real-time updates
+  name: 'forums',
+  secret: 'nkj234n@%U(4/y3gtbwr'  //random keyboard mashing
+}));
 
-// express
-// body parser
-// cookie session
-// bcrypt
-// ejs
-// method override
-// mongoose
-// request?
-// favicon?
-
-//middlewares
-
-// npm install --save
+app.listen('3000', function() {
+  console.log('forums online on port 3000');
+});
