@@ -1,0 +1,27 @@
+{
+  "name": "forums_chat_app",
+  "version": "1.0.0",
+  "description": "- App which will allow for dynamic forum posting and real-time chat of online users",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marytmott/forums_chat_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marytmott/forums_chat_app/issues"
+  },
+  "homepage": "https://github.com/marytmott/forums_chat_app#readme",
+  "dependencies": {
+    "body-parser": "^1.14.0",
+    "cookie-session": "^1.2.0",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.1.8"
+  }
+}
