@@ -57,7 +57,6 @@
 #####Schema hooks
 - pre-remove:
   - delete child posts
-  - *or move child posts to dif forum name?*
 
 ###Post
 1. title (required, maxlength, unique?)
