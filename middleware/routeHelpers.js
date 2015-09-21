@@ -1,4 +1,4 @@
-var db = require('.../models');
+var db = require('../models');
 
 var routeHelpers = {
   ensureLoggedIn: function(req, res, next) {
