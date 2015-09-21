@@ -33,7 +33,7 @@
   - bcrypt pw if new or modified
   - static method: authenticate user
   - class method: check password
-  - pre-remove:
+- pre-remove:
   - delete users child posts
   - delete users child comments
 
