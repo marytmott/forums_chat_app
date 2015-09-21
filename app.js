@@ -3,6 +3,7 @@ var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('cookie-session');
+// var loginMiddleware =
 
 app = express();
 
@@ -16,6 +17,8 @@ app.use(session({
   name: 'forums',
   secret: 'nkj234n@%U(4/y3gtbwr'  //random keyboard mashing
 }));
+
+require('./controllers/index');
 
 app.listen('3000', function() {
   console.log('forums online on port 3000');
