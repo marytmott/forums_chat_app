@@ -43,13 +43,13 @@
   - static method: authenticate user
   - class method: check password
 - pre-remove:
-  - delete users child posts
-  - delete users child comments
+  - delete user's child posts
+  - delete user's child comments
 
 ###Forum
 *preset forums or only to be modified by site admin (stretch goal)*
 
-1. title (required)
+1. name (required, unique)
 2. created (date, now)
 3. last updated (date of most recent post or comment)
 4. posts (array of schema id to child posts)
@@ -57,6 +57,7 @@
 #####Schema hooks
 - pre-remove:
   - delete child posts
+  - *or move child posts to dif forum name?*
 
 ###Post
 1. title (required, maxlength, unique?)
@@ -87,5 +88,5 @@
   - delete reference to this comment from parent post
   - delete reference to this comment from parent user
 - pre-save/update:
-  - update forum last updated
+  - update forum reference last updated
 
