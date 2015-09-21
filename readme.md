@@ -42,7 +42,7 @@
   - delete users child posts
   - delete users child comments
 
-####Forums
+####Forum
 *preset or only to be modified by site admin (stretch goal)*
 
 1. title (required)
@@ -65,6 +65,7 @@
 - pre-remove:
   - delete child comments from db
   - delete reference to this post from parent user
+  - delete reference to this post from parent forum
 
 ####Comment
 1. content (required, maxlength?)
