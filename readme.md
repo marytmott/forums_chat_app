@@ -29,7 +29,7 @@
 1. username (required, unique, length imitations)
 2. email (required, lowercase storage, unique)
 3. password (bcrypted, minlength, required)
-4. avatar link (use of avatar.io api)
+4. avatar link (use of avatars.io api)
   - default avatar if not provided
 5. personal comment (maxlength, for display on their posts/comments)
   - user model stretch goal: allow richer personal comment w/ html and/or images/links?
