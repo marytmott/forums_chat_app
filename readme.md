@@ -5,12 +5,14 @@
 - Users will need to be logged in to see content
   - project stretch goal: create private groups or use of site is by invitation only
 - Users will be able to create, edit and delete their own posts as well as see all posts
-- Users will be able to comment on posts
+- Users will be able to see other user’s account profiles, but only be able to modify their own
+- Users will be able create posts and comments and modify and delete their own
+  - project stretch goal: use ajax/client side js script for users to crud their own comments w/out page refresh
 - Users will see real-time chat they can join and contribute too on each page
   - project stretch goal: users will be able to open the chat in a new window and/or disable the chat portion on the page (if it will be featured on every page)
 - Users will be able to see who else is currently logged in
   - project stretch goal: users will be able to have direct message chat w/ another user or group of users
-- Users will be able to see other user’s account profiles, but only be able to modify their own
+
 - [Avatars.io](http://avatars.io/) api will be used to allow users to upload their own avatar
 - [Socket.io](http://socket.io/) will be used to integrate real-time features
 
