@@ -2,6 +2,7 @@ var routeMiddleware = require('../middleware/routeHelpers');
 
 app.get('/', routeMiddleware.ensureLoggedIn, function(req, res) {
   //if logged in, redirect to main site, otherwise, middleware will direct to login page
+  console.log(res.locals.user);
   res.render('index', {docTitle: 'Enter'});
 });
 

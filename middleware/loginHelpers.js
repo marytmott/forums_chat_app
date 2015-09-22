@@ -14,16 +14,16 @@ var loginHelpers = function(req, res, next) {
       if (err) {
         console.log(err);
       } else {
-        res.locals.user = user.username;
-        console.log('****LOCAL', res.locals.user);
+        res.locals.user = user;
+        console.log('****LOCAL', res.locals.user.username);
+        next();
       }
     });
   } else {
     res.locals.user = null;
     console.log('****LOCAL', res.locals.user);
+    next();
   }
-
-  next();
 };
 
 module.exports = loginHelpers;
