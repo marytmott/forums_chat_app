@@ -27,6 +27,13 @@ var commentSchema = mongoose.Schema({
 //update lastupdate in forum
 //populate, find id, update
 
+//update 'lastUpdate' date every time the comment is updated
+commentSchema.pre('save', function(next) {
+  now = new Date();
+  this.lastUpdate = now;
+  next();
+});
+
 commentSchema.pre('remove', function(next) {
   //delete reference to this comment in user
   var comment = this;
