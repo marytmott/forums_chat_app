@@ -22,6 +22,7 @@ var postSchema = mongoose.Schema({
   },
   lastUpdate: Date,
   lastActivity: Date,
+  lastActivityUser: String,
   forum: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Forum'
@@ -43,7 +44,7 @@ postSchema.pre('save', function(next) {
   this.lastUpdate = now;
   this.lastActivity = now;
   //update forum's lastActivity
-  db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now}, function(err, forum) {
+  db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now, lastActivityUser: this.user}, function(err, forum) {
     if (err) {
       console.log(err);
     } else {

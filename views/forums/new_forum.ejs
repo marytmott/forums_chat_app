@@ -1,3 +1,10 @@
 <% include ../partials/header %>
 
+  <form action="/forums" method="POST">
+    <label>Forum Title:
+      <input type="text" name="forum[name]" autofocus />
+    </label>
+    <button type="submit">Create Forum</button>
+  </form>
+
 <% include ../partials/footer %>

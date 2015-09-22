@@ -1,0 +1,12 @@
+<% include ../partials/header %>
+
+  <% forum.posts.forEach(function(post) { %>
+
+    <div>
+      <h4><a href="/forums/<%= forum._id %>/<%= post._id %>"><%= post.title %></a></h4>
+      <p>last post <%= post.lastActivity %> by <a href="/users/<% post.lastActivityUser %>">post.lastActivityUser</a></p>
+    </div>
+
+  <% }) %>
+
+<% include ../partials/footer %>

@@ -13,6 +13,7 @@ var forumSchema = mongoose.Schema({
     default: Date.now
   },
   lastActivity: Date,
+  lastActivityUser: String,
   posts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post'

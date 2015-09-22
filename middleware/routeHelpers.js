@@ -1,6 +1,5 @@
-// var db = require('../models');
-
 var routeHelpers = {
+  //this is take care of on res.locals
   ensureLoggedIn: function(req, res, next) {
     //if user is logged in
     if (req.session.id !== null && req.session.id !== undefined) {

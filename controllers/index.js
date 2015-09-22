@@ -7,6 +7,7 @@ app.get('/', routeMiddleware.ensureLoggedIn, function(req, res) {
 });
 
 require('./users');
+require('./forums');
 
 app.get('*', function(req, res) {
   res.send('page not found');
