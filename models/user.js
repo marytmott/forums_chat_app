@@ -97,7 +97,7 @@ userSchema.methods.checkPassword = function(password, callback) {
 }
 
 ///middleware to delete all user's posts when account is deleted
-userSchema.pre('remove', function(callback) {
+userSchema.pre('remove', function(next) {
   //delete all user's posts
   Post.remove({user: this._id}, function(err, post) {
     if (err) {
@@ -114,7 +114,7 @@ userSchema.pre('remove', function(callback) {
       console.log('DELETED: ', comment)
     }
   });
-  callback();
+  next();
 });
 
 var User = mongoose.model('User', userSchema);
