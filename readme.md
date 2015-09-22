@@ -52,6 +52,7 @@
 1. name (required, unique)
 2. created (date, now)
 3. last activity (date of most recent post or comment)
+4. last activity by user (user who made most recent activity)
 4. posts (array of schema id to child posts)
 
 #####Schema hooks
@@ -64,9 +65,10 @@
 3. created (date, now)
 4. last updated (date)
 6. last activity (date)
-7. forum (schema id to parent forum)
-8. user (schema id to user)
-9. comments (array of schema id to child comments)
+7. last activity user (user who most recently had activity on the post or its comments)
+8. forum (schema id to parent forum)
+9. user (schema id to user)
+10. comments (array of schema id to child comments)
 
 #####Schema hooks
 - pre-remove:
@@ -75,6 +77,7 @@
   - delete reference to this post from parent forum
 - pre-save/update:
   - update forum last updated
+  - update forum last activity user
 
 ###Comment
 1. content (required, maxlength?)
@@ -88,6 +91,7 @@
   - delete reference to this comment from parent post
   - delete reference to this comment from parent user
 - pre-save/update:
-  - update post reference last activity
-  - update forum reference last updated
+  - update post last activity
+  - update forum last updated
+  - update forum last activity user
 
