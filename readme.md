@@ -63,9 +63,10 @@
 2. content (required, maxlength?)
 3. created (date, now)
 4. last updated (date)
-5. forum (schema id to parent forum)
-6. user (schema id to user)
-7. comments (array of schema id to child comments)
+6. last activity (date)
+7. forum (schema id to parent forum)
+8. user (schema id to user)
+9. comments (array of schema id to child comments)
 
 #####Schema hooks
 - pre-remove:
@@ -87,5 +88,6 @@
   - delete reference to this comment from parent post
   - delete reference to this comment from parent user
 - pre-save/update:
+  - update post reference last activity
   - update forum reference last updated
 
