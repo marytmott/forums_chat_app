@@ -51,7 +51,7 @@
 
 1. name (required, unique)
 2. created (date, now)
-3. last updated (date of most recent post or comment)
+3. last activity (date of most recent post or comment)
 4. posts (array of schema id to child posts)
 
 #####Schema hooks
