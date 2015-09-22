@@ -1,6 +1,8 @@
 var routeMiddleware = require('../middleware/routeHelpers');
 
 app.get('/', routeMiddleware.ensureLoggedIn, function(req, res) {
+  //if logged in, redirect, otherwise, display login page
+
   // res.render('index')
 });
 
