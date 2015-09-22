@@ -21,8 +21,10 @@ var postSchema = mongoose.Schema({
     default: Date.now
   },
   lastUpdate: Date,
+  lastActivity: Date,
   forum: {
-
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Forum'
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -34,15 +36,34 @@ var postSchema = mongoose.Schema({
   }]
 });
 
-//update 'lastUpdate' date every time the post is updated
 postSchema.pre('save', function(next) {
-  this.lastUpdate = new Date();
+  //update lastUpdate and lastActivity
+  var now = new Date();
+  var post = this;
+  this.lastUpdate = now;
+  this.lastActivity = now;
+  //update forum's lastActivity
+  db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now}, function(err, forum) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('UPDATED POST LAST ACTIVITY REFERENCE IN FORUM');
+    }
+  });
   next();
 });
 
 postSchema.pre('remove', function(next) {
-  //delete reference to this post in user
   var post = this;
+  //delete reference to this post in forum
+  db.Forum.findByIdAndUpdate(post.user, {$pull: {posts: post._id}}, function(err, forum) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('DELETED POST REFERENCE FROM FORUM');
+    }
+  });
+  //delete reference to this post in user
   db.User.findByIdAndUpdate(post.user, {$pull: {posts: post._id}}, function(err, user) {
     if (err) {
       console.log(err);

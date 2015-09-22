@@ -24,12 +24,25 @@ var commentSchema = mongoose.Schema({
   }
 });
 
-//update lastupdate in forum
-//populate, find id, update
-
-//update 'lastUpdate' date every time the comment is updated
 commentSchema.pre('save', function(next) {
-  this.lastUpdate = new Date();
+  //update lastUpdate
+  var now = new Date();
+  var comment = this;
+  this.lastUpdate = now;
+  //update forum's lastActivity
+  db.Post.findById(this.post).populate('post').exec(function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now}, function(err, forum) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('UPDATED POST LAST ACTIVITY REFERENCE IN FORUM');
+        }
+      });
+    }
+  });
   next();
 });
 
