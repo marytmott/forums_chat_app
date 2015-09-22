@@ -29,8 +29,7 @@ var commentSchema = mongoose.Schema({
 
 //update 'lastUpdate' date every time the comment is updated
 commentSchema.pre('save', function(next) {
-  now = new Date();
-  this.lastUpdate = now;
+  this.lastUpdate = new Date();
   next();
 });
 
