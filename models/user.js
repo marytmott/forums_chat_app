@@ -103,7 +103,7 @@ userSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED: ', post);
+      console.log('DELETED USER POST');
     }
   });
   //delete all user's comments
@@ -111,7 +111,7 @@ userSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED: ', comment)
+      console.log('DELETED COMMENT OF USER');
     }
   });
   next();

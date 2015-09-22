@@ -44,7 +44,7 @@ postSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED REFERENCE FROM USER');
+      console.log('DELETED POST REFERENCE FROM USER');
     }
   });
   //delete all comments
@@ -52,7 +52,7 @@ postSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED: ', comment);
+      console.log('DELETED POST COMMENT');
     }
   });
   next();
