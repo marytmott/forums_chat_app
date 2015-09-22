@@ -20,10 +20,7 @@ var postSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  lastUpdate: {
-    type: Date,
-    default: Date.now
-  },
+  lastUpdate: Date,
   forum: {
 
   },
@@ -35,6 +32,13 @@ var postSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
   }]
+});
+
+//update 'lastUpdate' date every time the post is updated
+postSchema.pre('save', function(next) {
+  now = new Date();
+  this.lastUpdate = now;
+  next();
 });
 
 postSchema.pre('remove', function(next) {
