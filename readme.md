@@ -27,7 +27,7 @@
 ##Models
 ###User
 1. username (required, unique, length imitations)
-2. email (required, lowercase storage, unique)
+2. email (required, unique)
 3. password (bcrypted, minlength, required)
 4. avatar link (use of avatars.io api)
   - default avatar if not provided
