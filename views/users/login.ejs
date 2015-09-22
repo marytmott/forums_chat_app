@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+
+  <form action="/login" method="POST">
+    <label>
+      <input type="text" name="user[username]" placeholder="enter your username" autofocus `/>
+    </label>
+    <label>
+      <input type="password" name="user[password]" placeholder="enter your password" />
+    </label>
+    <button type="submit">Login</button>
+  </form>
+  <p><a href="/signup">Sign up</a> for an account.</p>
+
+<% include ../partials/footer %>
