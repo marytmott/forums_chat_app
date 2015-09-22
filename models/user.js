@@ -83,4 +83,28 @@ userSchema.statics.authenticate = function(formData, callback) {
   });
 };
 
+///middleware to delete all user's posts when account is deleted
+userSchema.pre('remove', function(callback) {
+  //delete all user's posts
+  Post.remove({user: this._id}, function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('DELETED: ', post);
+    }
+  });
+  //delete all user's comments
+  Comment.remove({user: this._id}, function(err, comment) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('DELETED: ', comment)
+    }
+  });
+  callback();
+});
+
+var User = mongoose.model('User', userSchema);
+
+module.exports = User;
 
