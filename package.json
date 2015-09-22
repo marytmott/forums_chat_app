@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/marytmott/forums_chat_app#readme",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.0",
     "cookie-session": "^1.2.0",
     "ejs": "^2.3.4",

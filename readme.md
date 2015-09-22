@@ -30,7 +30,7 @@
 2. email (required, unique)
 3. password (bcrypted, minlength, required)
 4. avatar link (use of avatars.io api)
-  - default avatar if not provided
+  - default avatar if not provided (to be handled in views)
 5. personal comment (maxlength, for display on their posts/comments)
   - user model stretch goal: allow richer personal comment w/ html and/or images/links?
 6. created (date, now)
