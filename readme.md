@@ -64,7 +64,7 @@
 3. created (date, now)
 4. last updated (date)
 5. forum (schema id to parent forum)
-6. author (schema id to user)
+6. user (schema id to user)
 7. comments (array of schema id to child comments)
 
 #####Schema hooks
@@ -79,7 +79,7 @@
 1. content (required, maxlength?)
 2. created (date, now)
 3. last updated (date)
-4. author (schema id to user)
+4. user (schema id to user)
 5. post (schema id to parent post)
 
 #####Schema hooks
