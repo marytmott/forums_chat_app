@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
+var Post = require('./post');
+var Comment = require('./comment');
 
 var userSchema = mongoose.Schema({
   username: {
@@ -82,6 +84,17 @@ userSchema.statics.authenticate = function(formData, callback) {
     }
   });
 };
+//on all instances of user
+userSchema.methods.checkPassword = function(password, callback) {
+  var user = this;  //result fetched from database
+  bcrypt.compare(password, user.password, function(err, isMatch) {
+    if (isMatch) {
+      callback(null, user);
+    } else {
+      callback(err, null);
+    }
+  });
+}
 
 ///middleware to delete all user's posts when account is deleted
 userSchema.pre('remove', function(callback) {
