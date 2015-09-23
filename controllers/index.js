@@ -8,6 +8,9 @@ app.get('/', routeMiddleware.ensureLoggedIn, function(req, res) {
 
 require('./users');
 require('./forums');
+//load posts after forums because of /forums/:forum_name/edit vs. forums/:forum_name/:post_name
+require('./posts');
+
 
 app.get('*', function(req, res) {
   res.send('page not found');

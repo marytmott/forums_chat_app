@@ -1,7 +1,7 @@
 var db = require('../models');
 var routeMiddleware = require('../middleware/routeHelpers');
 
-//ensure logged in everywhere!
+//routeMiddleware.ensureLoggedIn everywhere!
 
 //display all formus
 app.get('/forums', routeMiddleware.ensureLoggedIn, function(req, res) {
@@ -80,12 +80,12 @@ app.delete('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, 
 });
 
 //form to rename a forum
-app.get('/forums/:forum_name/modify', routeMiddleware.ensureLoggedIn, function(req, res) {
+app.get('/forums/:forum_name/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
     if (err) {
       console.log(err);
     } else {
-      res.render('forums/modify_forum', {docTitle: 'Modify' + forum.name, forum: forum});
+      res.render('forums/edit_forum', {docTitle: 'Edit ' + forum.name, forum: forum});
     }
   });
 });
