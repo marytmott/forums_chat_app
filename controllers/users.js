@@ -67,14 +67,32 @@ app.get('/users/:username', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
+
+//edit user's profile
 app.put('/users/:username', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureCorrectUser, function(req, res) {
-  db.User.findOne({username: req.params.username}).populate('posts').exec(function(err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('users/user', {docTitle: user.username + '\'s Profile', user: user});
-    }
-  });
+  // console.log(req.body.user);
+  var edited = routeMiddleware.emptyBody(req.body.user);
+  if (edited) {
+    db.User.findOne({username: req.params.username}, function(err, user) {
+      if (err) {
+        console.log(err);
+      } else {
+        //dry this up in separate function to use across controllers
+        //if input, change it; if not, user default
+        console.log('LOGGIN', req.body.user.email, user.email);
+        user.username = req.body.user.username || user.username;
+        user.email = req.body.user.email || user.email;
+        user.password = req.body.user.password || user.password;
+        user.avatar = req.body.user.avatar || user.avatar;
+        user.persComment = req.body.user.persComment || user.persComment;
+        user.save();
+        res.redirect('/users/' + user.username);
+      }
+    });
+  } else {
+    res.redirect('/users/' + req.params.username);
+  }
+
 });
 
 //form to edit logged-in user
@@ -83,7 +101,7 @@ app.get('/users/:username/edit', routeMiddleware.ensureLoggedIn, routeMiddleware
     if (err) {
       console.log(err);
     } else {
-      res.render('users/edit_user', {docTitle: 'Edit' + user.username, user: user});
+      res.render('users/edit_user', {docTitle: 'Edit My Profile', user: user});
     }
   });
 });
