@@ -4,9 +4,11 @@
 
     <div>
       <h4><a href="/forums/<%= forum._id %>/<%= post._id %>"><%= post.title %></a></h4>
-      <p>last post <%= post.lastActivity %> by <a href="/users/<% post.lastActivityUser %>">post.lastActivityUser</a></p>
+      <p>last activity <%= post.lastActivity %> by <a href="/users/<% post.lastActivityUser %>">post.lastActivityUser</a></p>
     </div>
 
   <% }) %>
+
+  <p><a href="/forums/<%= forum.name %>/modify">Rename or delete this forum.</a></p>
 
 <% include ../partials/footer %>

@@ -1,10 +1,10 @@
 <% include ../partials/header %>
 
-  <p><a href="/forums/new">Click here</a> to add a new forum.</p>
+  <p><a href="/forums/new">Add</a> a new forum.</p>
 
   <% forums.forEach(function(forum) { %>
-
-
-  <%  }) %>
+    <h4><a href="/forums/<%= forum.name %>"><%= forum.name %></a></h4>
+    <p>last activity <%= forum.lastActivity %> by <a href="/users/<% forum.lastActivityUser %>"><%= forum.lastActivityUser %></a></p>
+  <%  }); %>
 
 <% include ../partials/footer %>

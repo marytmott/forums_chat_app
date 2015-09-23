@@ -1,0 +1,13 @@
+<% include ../partials/header %>
+
+
+  <h4>Modify <%= forum.name %></h4>
+  <form action="/forums/<%= forum.name %>?_method=put" method="POST">
+    <label>Rename this forum:
+      <input type="text" name="forum[name]" placeholder="<%= forum.name %>" />
+    </label>
+    <button type="submit">Rename</button>
+    <button type="submit" formaction="/forums/<%= forum.name %>?_method=delete">Delete Forum</button>
+  </form>
+
+<% include ../partials/footer %>
