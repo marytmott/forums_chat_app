@@ -53,8 +53,13 @@ app.put('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res
         console.log(err);
       } else {
         forum.name = req.body.forum.name;
-        forum.save();
-        res.redirect('/forums/' + forum.name);
+        forum.save(function(err, updatedForum) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect('/forums/' + updatedForum.name);
+          }
+        });
       }
     });
   } else {

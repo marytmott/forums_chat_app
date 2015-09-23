@@ -82,11 +82,17 @@ app.put('/users/:username', routeMiddleware.ensureLoggedIn, routeMiddleware.ensu
         console.log('LOGGIN', req.body.user.email || user.email);
         user.username = req.body.user.username || user.username;
         user.email = req.body.user.email || user.email;
+        //change pw on separate page?
         user.password = req.body.user.password || user.password;
         user.avatar = req.body.user.avatar || user.avatar;
         user.persComment = req.body.user.persComment || user.persComment;
-        user.save();
-        res.redirect('/users/' + user.username);
+        user.save(function(err, updatedUser) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect('/users/' + updatedUser.username);
+          }
+        });
       }
     });
   } else {
