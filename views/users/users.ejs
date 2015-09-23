@@ -1,0 +1,10 @@
+<% include ../partials/header %>
+
+  <% users.forEach(function(user) { %>
+  <div>
+    <img src="http://placehold.it/50x50" />
+    <h4><a href="/users/<%= user.username %>"><%= user.username %></a></h4>
+  </div>
+  <%  }); %>
+
+<% include ../partials/footer %>

@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+  <div class="user-card">
+    <div>
+      <img src="http://placehold.it/150x150" />
+    </div>
+    <div>
+      <% if (thisUser.username === user.username) { %>
+        <p><a href="/users/<%= user.username %>/edit">Edit my profile.</a></p>
+      <% } %>
+      <p><%= user.username %></p>
+      <% if (user.persComment) { %>
+        <p><%= user.persComment %></p>
+      <% } %>
+    </div>
+  </div>
+  <!--if logged in user, display is different -->
+
+  <div>
+    <h4><%= user.username %>'s Posts:</h4>
+    <% user.posts.forEach(function(post) { %>
+      <h4><a href="/posts/<%= post.title %>"><%= post.title %></a></h4>
+      <p>last activity <%= post.lastActivity %> by <a href="/users/<% post.lastActivityUser %>"><%= post.lastActivityUser %></a></p>
+    <% }); %>
+  </div>
+
+<% include ../partials/footer %>

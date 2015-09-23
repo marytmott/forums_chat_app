@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+
+  <div class="user-card">
+    <div>
+      <img src="http://placehold.it/150x150" />
+    </div>
+    <div>
+      <p><%= user.username %></p>
+      <% if (user.persComment) { %>
+        <p><%= user.persComment %></p>
+      <% } %>
+    </div>
+  </div>
+
+<% include ../partials/footer %>

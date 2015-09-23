@@ -14,14 +14,14 @@ var loginHelpers = function(req, res, next) {
       if (err) {
         console.log(err);
       } else {
-        res.locals.user = user;
-        console.log('****LOCAL', res.locals.user.username);
+        res.locals.thisUser = user;
+        console.log('****LOCAL', res.locals.thisUser.username);
         next();
       }
     });
   } else {
-    res.locals.user = null;
-    console.log('****LOCAL', res.locals.user);
+    res.locals.thisUser = null;
+    console.log('****LOCAL', res.locals.thisUser);
     next();
   }
 };
