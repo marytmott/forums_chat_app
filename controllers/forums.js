@@ -3,6 +3,7 @@ var routeMiddleware = require('../middleware/routeHelpers');
 
 //ensure logged in everywhere!
 
+//display all formus
 app.get('/forums', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Forum.find({}, function(err, forums) {
     if (err) {
@@ -14,6 +15,7 @@ app.get('/forums', routeMiddleware.ensureLoggedIn, function(req, res) {
   })
 });
 
+//create a new forum
 app.post('/forums', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Forum.create(req.body.forum, function(err, forum) {
     if (err) {
@@ -26,6 +28,7 @@ app.post('/forums', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
+//form for new forum
 app.get('/forums/new', routeMiddleware.ensureLoggedIn, function(req, res) {
   res.render('forums/new_forum', {docTitle: 'Create New Forum'});
 });
@@ -41,12 +44,10 @@ app.get('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res
    });
 });
 
+//rename a forum
 app.put('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res) {
-
-  // console.log(req.body.forum);
   if (req.body.forum.name) {
     db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
-      // console.log(forum);
       if (err) {
         console.log(err);
       } else {
@@ -60,8 +61,19 @@ app.put('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res
   }
 });
 
-// app.delete();
+//delete a forum
+app.delete('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
+    if (err) {
+      console.log(err);
+    } else {
+      forum.remove();
+      res.redirect('/forums');
+    }
+  });
+});
 
+//form to rename a forum
 app.get('/forums/:forum_name/modify', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
     if (err) {
