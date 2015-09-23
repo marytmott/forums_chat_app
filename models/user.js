@@ -3,6 +3,7 @@ var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 var Post = require('./post');
 var Comment = require('./comment');
+var db = require('./index');
 
 var userSchema = mongoose.Schema({
   username: {
@@ -99,7 +100,7 @@ userSchema.methods.checkPassword = function(password, callback) {
 ///middleware to delete all user's posts when account is deleted
 userSchema.pre('remove', function(next) {
   //delete all user's posts
-  Post.remove({user: this._id}, function(err, post) {
+  db.Post.remove({user: this._id}, function(err, post) {
     if (err) {
       console.log(err);
     } else {
@@ -107,7 +108,7 @@ userSchema.pre('remove', function(next) {
     }
   });
   //delete all user's comments
-  Comment.remove({user: this._id}, function(err, comment) {
+  db.Comment.remove({user: this._id}, function(err, comment) {
     if (err) {
       console.log(err);
     } else {

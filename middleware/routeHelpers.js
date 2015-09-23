@@ -34,7 +34,6 @@ var routeHelpers = {
   emptyBody: function(reqSpec) {
     console.log('HERE', reqSpec);
     for (var property in reqSpec) {
-      // console.log('REQ', reqSpec[property]);
       if (reqSpec[property]) {
         //as soon as a value is found, will break out of function and return true
         return true;

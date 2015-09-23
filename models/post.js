@@ -73,7 +73,7 @@ postSchema.pre('remove', function(next) {
     }
   });
   //delete all comments
-  Comment.remove({post: this._id}, function(err, comment) {
+  db.Comment.remove({post: this._id}, function(err, comment) {
     if (err) {
       console.log(err);
     } else {

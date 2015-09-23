@@ -24,6 +24,14 @@
         <button type="submit">Update My Profile</button>
       </form>
     </div>
+    <br />
+    <br />
+    <div>
+      <form action="/users/<%= user.username %>?_method=delete" method="POST">
+        <button type="submit">Delete My Account</button>
+        <p>Deleting your account will also delete all your posts and comments.</p>
+      </form>
+    </div>
   </div>
 
 <% include ../partials/footer %>
