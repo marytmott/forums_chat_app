@@ -43,13 +43,15 @@ app.get('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res
 
 app.put('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res) {
 
-  console.log(req.body.forum);
-  if (req.body.forum) {
-    db.Forum.update({name: req.params.forum_name}, req.body.forum, function(err, forum) {
+  // console.log(req.body.forum);
+  if (req.body.forum.name) {
+    db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
       // console.log(forum);
       if (err) {
         console.log(err);
       } else {
+        forum.name = req.body.forum.name;
+        forum.save();
         res.redirect('/forums/' + forum.name);
       }
     });
