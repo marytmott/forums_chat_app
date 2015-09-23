@@ -46,7 +46,8 @@ app.get('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res
 
 //rename a forum
 app.put('/forums/:forum_name', routeMiddleware.ensureLoggedIn, function(req, res) {
-  if (req.body.forum.name) {
+  var edited = routeMiddleware.emptyBody(req.body.forum);
+  if (edited) {
     db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
       if (err) {
         console.log(err);

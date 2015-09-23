@@ -5,10 +5,24 @@
       <img src="http://placehold.it/150x150" />
     </div>
     <div>
-      <p><%= user.username %></p>
-      <% if (user.persComment) { %>
-        <p><%= user.persComment %></p>
-      <% } %>
+      <form action="/users/<%= user.username %>?_method=put" method="POST">
+        <label>Change your username:
+          <input type="text" name="user[username]" placeholder="<%= user.username %>" />
+        </label>
+        <label>Update your email address:
+          <input type="text" name="user[email]" placeholder="<%= user.email %>" />
+        </label>
+        <label>Change your password:
+          <input type="password" name="user[password]" />
+        </label>
+        <label>Update your avatar:
+          <input type="file" accept="image/*" name="user[avatar]" />
+        </label>
+        <label>Edit your personal comment (to be displayed on your posts):
+          <textarea name="user[persComment]" placeholder="<%= user.persComment %>"><%= user.persComment %></textarea>
+        </label>
+        <button type="submit">Update My Profile</button>
+      </form>
     </div>
   </div>
 

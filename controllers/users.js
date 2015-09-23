@@ -45,7 +45,7 @@ app.get('/logout', function(req, res) {
 
 //ensure logged in for all routes below
 
-//show all users
+//display all users
 app.get('/users', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.find({}, function(err, users) {
     if (err) {
@@ -56,6 +56,7 @@ app.get('/users', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
+//display a user
 app.get('/users/:username', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findOne({username: req.params.username}).populate('posts').exec(function(err, user) {
     if (err) {
@@ -66,7 +67,18 @@ app.get('/users/:username', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
-app.get('/users/:username/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
+app.put('/users/:username', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureCorrectUser, function(req, res) {
+  db.User.findOne({username: req.params.username}).populate('posts').exec(function(err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('users/user', {docTitle: user.username + '\'s Profile', user: user});
+    }
+  });
+});
+
+//form to edit logged-in user
+app.get('/users/:username/edit', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureCorrectUser, function(req, res) {
   db.User.findOne({username: req.params.username}, function(err, user) {
     if (err) {
       console.log(err);

@@ -6,7 +6,7 @@
     </div>
     <div>
       <% if (thisUser.username === user.username) { %>
-        <p><a href="/users/<%= user.username %>/edit">Edit my profile.</a></p>
+        <p><a href="/users/<%= user.username %>/edit">Update your profile.</a></p>
       <% } %>
       <p><%= user.username %></p>
       <% if (user.persComment) { %>
