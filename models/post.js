@@ -22,7 +22,10 @@ var postSchema = mongoose.Schema({
   },
   lastUpdate: Date,
   lastActivity: Date,
-  lastActivityUser: String,
+  lastActivityUser: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   forum: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Forum'
@@ -37,30 +40,21 @@ var postSchema = mongoose.Schema({
   }]
 });
 
-postSchema.pre('save', function(next) {
+postSchema.post('save', function(post) {
   //update lastUpdate and lastActivity
   var now = new Date();
-  var post = this;
-  this.lastUpdate = now;
-  this.lastActivity = now;
+  post.lastUpdate = now;
+  post.lastActivity = now;
   //update forum's lastActivity
   db.Forum.findById(post.forum, function(err, forum) {
     if (err) {
       console.log(err);
     } else {
-      post.populate('user').exec(function(err, post) {
+      forum.lastActivity = now;
+      forum.lastActivityUser = post.user;
+      forum.save(function(err, updatedForum) {
         if (err) {
           console.log(err);
-        } else {
-          forum.lastActivity = now;
-          forum.lastActivityUser = post.user.username;
-          forum.save(function(err, updatedForum) {
-            if (err) {
-              console.log(err);
-            } else {
-              next();
-            }
-          });
         }
       });
     }

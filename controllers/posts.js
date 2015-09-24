@@ -73,9 +73,7 @@ app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, functio
 //create new post
 app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
   ///this is where we start getting fancy
-
-
-  db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
+  db.Post.create(req.body.post, function(err, post) {
     if (err) {
       console.log(err);
     } else {
@@ -83,27 +81,27 @@ app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(r
         if (err) {
           console.log(err);
         } else {
-          db.Post.create(req.body.post, function(err, post) {
+          user.posts.push(post);
+          user.save(function(err, updatedUser) {
             if (err) {
               console.log(err);
             } else {
-              // post.forum = forum;
-              post.user = user;
-              post.save(function(err, post) {
+              db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
                 if (err) {
                   console.log(err);
                 } else {
-                  user.posts.push(post);
-                  user.save(function(err, updatedUser) {
+                  forum.posts.push(post);
+                  forum.save(function(err, updatedForum) {
                     if (err) {
                       console.log(err);
                     } else {
-                      forum.posts.push(post);
-                      forum.save(function(err, updatedForum) {
+                      // post.forum = forum;
+                      post.user = user;
+                      post.save(function(err, updatedPost) {
                         if (err) {
                           console.log(err);
                         } else {
-                          res.redirect('/forums/' + req.params.forum_name + '/' + post._id);
+                          res.redirect('/forums/' + req.params.forum_name + '/' + updatedPost._id);
                         }
                       });
                     }
@@ -116,6 +114,49 @@ app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(r
       });
     }
   });
+
+
+  // db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     db.User.findOne({username: res.locals.thisUser.username}, function(err, user) {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
+  //         db.Post.create(req.body.post, function(err, post) {
+  //           if (err) {
+  //             console.log(err);
+  //           } else {
+  //             // post.forum = forum;
+  //             post.user = user;
+  //             post.save(function(err, post) {
+  //               if (err) {
+  //                 console.log(err);
+  //               } else {
+  //                 user.posts.push(post);
+  //                 user.save(function(err, updatedUser) {
+  //                   if (err) {
+  //                     console.log(err);
+  //                   } else {
+  //                     forum.posts.push(post);
+  //                     forum.save(function(err, updatedForum) {
+  //                       if (err) {
+  //                         console.log(err);
+  //                       } else {
+  //                         res.redirect('/forums/' + req.params.forum_name + '/' + post._id);
+  //                       }
+  //                     });
+  //                   }
+  //                 });
+  //               }
+  //             });
+  //           }
+  //         });
+  //       }
+  //     });
+  //   }
+  // });
 
 
       //       }
