@@ -22,10 +22,7 @@ var postSchema = mongoose.Schema({
   },
   lastUpdate: Date,
   lastActivity: Date,
-  lastActivityUser: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
+  lastActivityUser: String,
   forum: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Forum'
@@ -55,6 +52,7 @@ postSchema.pre('save', function(next) {
         if (err) {
           console.log(err);
         } else {
+          // post.lastActivityUser = user.username;
           forum.lastActivity = now;
           forum.lastActivityUser = user.username;
           forum.save(function(err) {
