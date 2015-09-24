@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var User = require('./user');
 var Post = require('./post');
 var db = require('./index');
 
@@ -13,10 +14,7 @@ var forumSchema = mongoose.Schema({
     default: Date.now
   },
   lastActivity: Date,
-  lastActivityUser: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
+  lastActivityUser: String,
   posts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post'

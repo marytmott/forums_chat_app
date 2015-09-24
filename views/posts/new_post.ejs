@@ -2,6 +2,7 @@
 
   <form action="/forums/<%= forum.name %>/posts" method="POST">
     <input type="hidden" name="post[forum]" value="<%= forum._id %>" />
+    <input type="hidden" name="post[user]" value="<%= thisUser._id %>" />
     <label>
       <input type="text" name="post[title]" placeholder="title of your post" />
     </label>

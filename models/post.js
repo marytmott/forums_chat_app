@@ -40,25 +40,48 @@ var postSchema = mongoose.Schema({
   }]
 });
 
-postSchema.post('save', function(post) {
+postSchema.pre('save', function(next) {
   //update lastUpdate and lastActivity
+      // console.log('POST', post.forum);
+
   var now = new Date();
+  var post = this;
   post.lastUpdate = now;
   post.lastActivity = now;
-  //update forum's lastActivity
-  db.Forum.findById(post.forum, function(err, forum) {
+  post.save(function(err, post) {
     if (err) {
       console.log(err);
     } else {
-      forum.lastActivity = now;
-      forum.lastActivityUser = post.user;
-      forum.save(function(err, updatedForum) {
+      db.Forum.findById(post.forum, function(err, forum) {
         if (err) {
           console.log(err);
+        } else {
+          db.User.findById(post.user, function(err, user) {
+            if (err) {
+              console.log(err);
+            } else {
+              user.posts.push(post);
+              user.save(function(err, user) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  forum.posts.push(post);
+                  forum.lastActivity = now;
+                  forum.lastActivityUser = user.username;
+                  forum.save(function(err) {
+                    if (err) {
+                      console.log(err);
+                    }
+                  });
+                }
+              });
+            }
+          });
         }
       });
     }
   });
+  next();
 });
 
 postSchema.pre('remove', function(next) {
