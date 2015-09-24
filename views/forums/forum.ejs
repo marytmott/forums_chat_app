@@ -5,7 +5,11 @@
 
     <div>
       <h4><a href="/forums/<%= forum._id %>/<%= post._id %>"><%= post.title %></a></h4>
-      <p>last activity <%= post.lastActivity %> by <a href="/users/<%= post.lastActivityUser %>"><%= post.lastActivityUser %></a></p>
+      <% if (post.lastActivity) { %>
+
+        <p>last activity <%= post.lastActivity %> by <a href="/users/<%= post.lastActivityUser %>"><%= post.lastActivityUser %></a></p>
+
+      <% } %>
     </div>
 
   <% }) %>

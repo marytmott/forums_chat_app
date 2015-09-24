@@ -23,11 +23,12 @@ var forumSchema = mongoose.Schema({
 
 forumSchema.pre('remove', function(next) {
   //delete all posts
-  db.Post.remove({forum: this._id}, function(err, post) {
+  db.Post.remove({forum: this._id}, function(err, posts) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED POST FROM FORUM');
+      console.log(posts);
+      console.log('DELETED POSTS FROM FORUM');
     }
   });
   next();

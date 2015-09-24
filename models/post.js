@@ -78,7 +78,7 @@ postSchema.pre('remove', function(next) {
     }
   });
   //delete reference to this post in user
-  db.User.findByIdAndUpdate(post.user, {$pull: {posts: post._id}}).exe(function(err, user) {
+  db.User.findByIdAndUpdate(post.user, {$pull: {posts: post._id}}).exec(function(err, user) {
     if (err) {
       console.log(err);
     } else {
