@@ -45,7 +45,7 @@ app.get('/logout', function(req, res) {
 
 //ensure logged in for all routes below
 
-//display all users
+//get all users
 app.get('/users', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.find({}, function(err, users) {
     if (err) {
@@ -56,7 +56,7 @@ app.get('/users', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
-//display a user
+//get specific user
 app.get('/users/:username', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findOne({username: req.params.username}).populate('posts').exec(function(err, user) {
     if (err) {

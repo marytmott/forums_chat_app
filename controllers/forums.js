@@ -3,7 +3,7 @@ var routeMiddleware = require('../middleware/routeHelpers');
 
 //routeMiddleware.ensureLoggedIn everywhere!
 
-//display all formus
+//get all forums
 app.get('/forums', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Forum.find({}, function(err, forums) {
     if (err) {

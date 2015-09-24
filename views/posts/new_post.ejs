@@ -1,0 +1,13 @@
+<% include ../partials/header %>
+
+  <form action="/forum/<%= forumName %>/posts" method="POST">
+    <label>
+      <input type="text" name="post[title]" placeholder="title of your post" />
+    </label>
+    <label>
+      <textarea name="post[content]"></textarea>
+    </label>
+    <button type="submit">Create New Post</button>
+  </form>
+
+<% include ../partials/footer %>
