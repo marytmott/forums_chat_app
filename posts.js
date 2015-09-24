@@ -3,13 +3,13 @@ var routeMiddleware = require('../middleware/routeHelpers');
 
 //routeMiddleware.ensureLoggedIn everywhere!
 
-//get a post (and its comments)
-app.get('/forums/:forum_name/:post_id', routeMiddleware.ensureLoggedIn, function(req, res) {
-  db.Post.find({}).populate('user comments').exec(function(err, post) {
+//alternate form to make a new post
+app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Forum.find({}, function(err, forums) {
     if (err) {
       console.log(err);
     } else {
-      res.render('posts/posts', {docTitle: post.title, post: post});
+      res.render('posts/new_post_select_forum', {docTitle: 'Create a New Post', forums: forums});
     }
   });
 });
@@ -30,9 +30,14 @@ app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(r
         if (err) {
           console.log(err);
         } else {
+          //if posting from '/posts/new'
+          if (req.body.post.forum) {
+            post.forum = req.body.post.forum;
+          } else {
+            post.forum = req.params.forum_name;
+          }
           post.user = user;
-          post.forum = req.params.forum_name;
-          post.save(function(err, updated`Post) {
+          post.save(function(err, updatedPost) {
             if (err) {
               console.log(err);
             } else {
@@ -48,6 +53,17 @@ app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(r
           });
         }
       });
+    }
+  });
+});
+
+//get a post (and its comments)
+app.get('/forums/:forum_name/:post_id', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Post.find({}).populate('user comments').exec(function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('posts/posts', {docTitle: post.title, post: post});
     }
   });
 });

@@ -1,5 +1,16 @@
 <% include ../partials/header %>
 
+  <div>
+    <h3><%= post.title %></h3>
+    <div>
+      <p>originally posted by <%= post.user %> on <%= post.created %>.
+        <% if (post.lastUpdate !== post.created) { %>
+          Last edited on <%= post.lastUpdate %>.
+        <% } %>
+      </p> <!-- last activity/last updated? -->
+      <p><%= post.content %></p>
+    </div>
+  </div>
   //show post
   //allow user logged in to edit
   //show comments

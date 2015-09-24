@@ -89,3 +89,14 @@ app.get('/forums/:forum_name/edit', routeMiddleware.ensureLoggedIn, function(req
     }
   });
 });
+
+//alternate form to make a new post
+app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Forum.find({}, function(err, forums) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('posts/new_post_select_forum', {docTitle: 'Create a New Post', forums: forums});
+    }
+  });
+});
