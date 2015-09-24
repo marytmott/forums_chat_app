@@ -1,11 +1,13 @@
 <% include ../partials/header %>
 
   <form action="/posts" method="POST">
+    <input type="hidden" name="post[user]" value="<%= thisUser._id %>" />
+    <input type="hidden" name="post[lastActivityUser]" value="<%= thisUser.username %>" />
     <label>Choose a forum to include this post in:
       <select name="post[forum]">
 
       <% forums.forEach(function(forum) { %>
-        <option value="<%= forum.name %>"><%= forum.name %></option>
+        <option value="<%= forum._id %>"><%= forum.name %></option>
       <% }); %>
 
       </select>

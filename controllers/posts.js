@@ -63,43 +63,6 @@ app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, functio
   });
 });
 
-//create new post
-// app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
-//   ///this is where we start getting fancy
-//   db.Post.create(req.body.post, function(err, post) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       db.User.findById(req.body.post.user, function(err, user) {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           user.posts.push(post);
-//           user.save(function(err, user) {
-//             if (err) {
-//               console.log(err);
-//             } else {
-//               db.Forum.findById(req.body.post.forum, function(err, forum) {
-//                 if (err) {
-//                   console.log(err);
-//                 } else {
-//                   forum.posts.push(post);
-//                   forum.save(function(err, forum) {
-//                     if (err) {
-//                       console.log(err);
-//                     } else {
-//                       res.redirect('/forums/' + forum.name + '/' + post._id);
-//                     }
-//                   });
-//                 }
-//               });
-//             }
-//           });
-//         }
-//       });
-//     }
-//   });
-// });
 
 //get a post (and its comments)
 app.get('/forums/:forum_name/:post_id', routeMiddleware.ensureLoggedIn, function(req, res) {
