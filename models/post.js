@@ -42,12 +42,11 @@ var postSchema = mongoose.Schema({
 
 postSchema.pre('save', function(next) {
   //update lastUpdate and lastActivity
-      // console.log('POST', post.forum);
-
   var now = new Date();
   var post = this;
   post.lastUpdate = now;
   post.lastActivity = now;
+  //link up all the records
   db.Forum.findById(post.forum, function(err, forum) {
     if (err) {
       console.log(err);
@@ -56,19 +55,11 @@ postSchema.pre('save', function(next) {
         if (err) {
           console.log(err);
         } else {
-          user.posts.push(post);
-          user.save(function(err, user) {
+          forum.lastActivity = now;
+          forum.lastActivityUser = user.username;
+          forum.save(function(err) {
             if (err) {
               console.log(err);
-            } else {
-              forum.posts.push(post);
-              forum.lastActivity = now;
-              forum.lastActivityUser = user.username;
-              forum.save(function(err) {
-                if (err) {
-                  console.log(err);
-                }
-              });
             }
           });
         }

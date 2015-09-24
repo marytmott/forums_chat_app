@@ -4,7 +4,7 @@
 
   <% forums.forEach(function(forum) { %>
     <h4><a href="/forums/<%= forum.name %>"><%= forum.name %></a></h4>
-    <p>last activity <%= forum.lastActivity %> by <a href="/users/<% forum.lastActivityUser %>"><%= forum.lastActivityUser %></a></p>
+    <p>last activity <%= forum.lastActivity %> by <a href="/users/<%= forum.lastActivityUser %>"><%= forum.lastActivityUser %></a></p>
   <%  }); %>
 
 <% include ../partials/footer %>

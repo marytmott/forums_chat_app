@@ -78,7 +78,34 @@ app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(r
     if (err) {
       console.log(err);
     } else {
-      res.redirect('/forums/' + req.params.forum_name + '/' + post._id);
+      db.User.findById(req.body.post.user, function(err, user) {
+        if (err) {
+          console.log(err);
+        } else {
+          user.posts.push(post);
+          user.save(function(err, user) {
+            if (err) {
+              console.log(err);
+            } else {
+              db.Forum.findById(req.body.post.forum, function(err, forum) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  forum.posts.push(post);
+                  forum.save(function(err, forum) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.redirect('/forums/' + req.params.forum_name + '/' + post._id);
+
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
     }
   });
 });
