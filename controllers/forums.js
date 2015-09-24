@@ -90,13 +90,18 @@ app.get('/forums/:forum_name/edit', routeMiddleware.ensureLoggedIn, function(req
   });
 });
 
-//alternate form to make a new post
-app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
-  db.Forum.find({}, function(err, forums) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('posts/new_post_select_forum', {docTitle: 'Create a New Post', forums: forums});
-    }
-  });
-});
+// //form to make a new post
+// app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
+//   res.render('posts/new_post', {docTitle: 'Create a New Post', forumName: req.params.forum_name});
+// });
+
+// //alternate form to make a new post
+// app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
+//   db.Forum.find({}, function(err, forums) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.render('posts/new_post_select_forum', {docTitle: 'Create a New Post', forums: forums});
+//     }
+//   });
+// });
