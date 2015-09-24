@@ -41,7 +41,7 @@ postSchema.pre('save', function(next) {
   //update lastUpdate and lastActivity
   var now = new Date();
   var post = this;
-  post.lastUpdate = now;
+  // post.lastUpdate = now;
   post.lastActivity = now;
   //link up all the records
   db.Forum.findById(post.forum, function(err, forum) {

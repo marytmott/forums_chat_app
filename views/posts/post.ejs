@@ -1,20 +1,32 @@
 <% include ../partials/header %>
 
+  <p><a href="forums/<%= post.forum.name %>">Return to <%= post.forum.name %>.</a></p>
+
   <div>
     <h3><%= post.title %></h3>
     <div>
-      <p>originally posted by <%= post.user %> on <%= post.created %>.
-        <% if (post.lastUpdate !== post.created) { %>
+      <p>originally posted by <%= post.user.username %> on <%= post.created %>.
+        <% if (post.lastUpdate) { %>
           Last edited on <%= post.lastUpdate %>.
         <% } %>
       </p> <!-- last activity/last updated? -->
+      <% if (post.user.username === thisUser.username) { %>
+        <p><a href="/forums/<%= post.forum.name %>/<%= post.title %>/edit">Edit post.</a></p>
+
+      <% } %>
       <p><%= post.content %></p>
     </div>
   </div>
-  //show post
-  //allow user logged in to edit
-  //show comments
-  //allow user logged in to comment
-  //back to forum link
+  <% comments.forEach(function(comment) { %>
+    <div>
+      <p><%= comment.user %> on <%= comment.lastUpdate %></p>
+      <p><%= comment.content %></p>
+      <% if (comment.user.username === thisUser.username) { %>
+        <p><a href="#">Edit comment.</a></p>
+      <% } %>
+    </div>
+  <% }); %>
+
+  <p><a href="#">Add your comment.</a></p>
 
 <% include ../partials/footer %>

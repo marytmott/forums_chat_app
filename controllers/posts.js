@@ -39,7 +39,7 @@ app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
                     if (err) {
                       console.log(err);
                     } else {
-                      res.redirect('/forums/' + forum.name + '/' + post._id);
+                      res.redirect('/forums/' + forum.name + '/' + post.title);
                     }
                   });
                 }
@@ -65,12 +65,22 @@ app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, functio
 
 
 //get a post (and its comments)
-app.get('/forums/:forum_name/:post_id', routeMiddleware.ensureLoggedIn, function(req, res) {
-  db.Post.find({}).populate('user comments').exec(function(err, post) {
+app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Post.findOne(req.params.post_title).populate('forum user comments').exec(function(err, post) {
     if (err) {
       console.log(err);
     } else {
-      res.render('posts/post', {docTitle: post.title, post: post});
+      db.Comment.find({post: post._id}).populate('user').exec(function(err, comments) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render('posts/post', {docTitle: post.title, post: post, comments: comments});
+        }
+      });
     }
   });
+});
+
+app.get('/forums/:forum_name/:post_title/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
+
 });
