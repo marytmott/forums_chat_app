@@ -34,7 +34,7 @@ commentSchema.pre('save', function(next) {
     if (err) {
       console.log(err);
     } else {
-      db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now, lastActivityUser: this.user}, function(err, forum) {
+      db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now, lastActivityUser: this.user.username}, function(err, forum) {
         if (err) {
           console.log(err);
         } else {

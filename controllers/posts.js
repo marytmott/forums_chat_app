@@ -14,14 +14,9 @@ app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
-//form to make a new post
-app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
-  res.render('posts/new_post', {docTitle: 'Create a New Post', forumName: req.params.forum_name});
-});
-
-//create new post
-app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
-  ///this is where we start getting fancy
+//create new post from general
+//need to dry this up or try some redirect thing
+app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Post.create(req.body.post, function(err, post) {
     if (err) {
       console.log(err);
@@ -30,12 +25,6 @@ app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(r
         if (err) {
           console.log(err);
         } else {
-          //if posting from '/posts/new'
-          if (req.body.post.forum) {
-            post.forum = req.body.post.forum;
-          } else {
-            post.forum = req.params.forum_name;
-          }
           post.user = user;
           post.save(function(err, updatedPost) {
             if (err) {
@@ -46,7 +35,146 @@ app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(r
                 if (err) {
                   console.log(err);
                 } else {
-                  res.redirect('/forums/' + req.params.forum_name + '/' + updatedPost._id);
+                  db.Forum.findOne({name: req.body.forum.name}, function(err, forum) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      forum.posts.push(post);
+                      forum.save(function(err, updatedForum) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          res.redirect('/forums/' + req.body.forum.name + '/' + updatedPost._id);
+                        }
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+//form to make a new post
+app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Forum.findOne(req.params.forum_name, function(err, forum) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('posts/new_post', {docTitle: 'Create a New Post', forum: forum});
+    }
+  });
+});
+
+//create new post
+app.post('/forums/:forum_name/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
+  ///this is where we start getting fancy
+
+
+  db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
+    if (err) {
+      console.log(err);
+    } else {
+      db.User.findOne({username: res.locals.thisUser.username}, function(err, user) {
+        if (err) {
+          console.log(err);
+        } else {
+          db.Post.create(req.body.post, function(err, post) {
+            if (err) {
+              console.log(err);
+            } else {
+              // post.forum = forum;
+              post.user = user;
+              post.save(function(err, post) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  user.posts.push(post);
+                  user.save(function(err, updatedUser) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      forum.posts.push(post);
+                      forum.save(function(err, updatedForum) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          res.redirect('/forums/' + req.params.forum_name + '/' + post._id);
+                        }
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+      //       }
+      //     });
+
+
+
+
+      // // forum.posts.push(post);
+      // // forum.save(function(err, updatedForum) {
+      // //   if (err) {
+      // //     console.log(err);
+      // //   } else {
+      // //     post.forum = forum;
+      // //     post.user = user;
+      // //     post.save(function(err, updatedPost) {
+      // //       if (err) {
+      // //         console.log(err);
+      // //       } else {
+      // //       }
+      // //     });
+      // //   }
+      // });
+
+
+  db.Post.create(req.body.post, function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+
+      db.User.findOne({username: res.locals.thisUser.username}, function(err, user) {
+        if (err) {
+          console.log(err);
+        } else {
+          user.posts.push(post);
+          user.save(function(err, updatedUser) {
+            if (err) {
+              console.log(err);
+            } else {
+              db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  forum.posts.push(post);
+                  forum.save(function(err, updatedForum) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      post.forum = forum;
+                      post.user = user;
+                      post.save(function(err, updatedPost) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          res.redirect('/forums/' + req.params.forum_name + '/' + post._id);
+                        }
+                      });
+                    }
+                  });
                 }
               });
             }
@@ -63,7 +191,7 @@ app.get('/forums/:forum_name/:post_id', routeMiddleware.ensureLoggedIn, function
     if (err) {
       console.log(err);
     } else {
-      res.render('posts/posts', {docTitle: post.title, post: post});
+      res.render('posts/post', {docTitle: post.title, post: post});
     }
   });
 });

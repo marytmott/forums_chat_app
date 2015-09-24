@@ -44,20 +44,33 @@ postSchema.pre('save', function(next) {
   this.lastUpdate = now;
   this.lastActivity = now;
   //update forum's lastActivity
-  db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now, lastActivityUser: this.user}, function(err, forum) {
+  db.Forum.findById(post.forum, function(err, forum) {
     if (err) {
       console.log(err);
     } else {
-      console.log('UPDATED POST LAST ACTIVITY REFERENCE IN FORUM');
+      post.populate('user').exec(function(err, post) {
+        if (err) {
+          console.log(err);
+        } else {
+          forum.lastActivity = now;
+          forum.lastActivityUser = post.user.username;
+          forum.save(function(err, updatedForum) {
+            if (err) {
+              console.log(err);
+            } else {
+              next();
+            }
+          });
+        }
+      });
     }
   });
-  next();
 });
 
 postSchema.pre('remove', function(next) {
   var post = this;
   //delete reference to this post in forum
-  db.Forum.findByIdAndUpdate(post.user, {$pull: {posts: post._id}}, function(err, forum) {
+  db.Forum.findByIdAndUpdate(post.forum, {$pull: {posts: post._id}}).exec(function(err, forum) {
     if (err) {
       console.log(err);
     } else {
@@ -65,7 +78,7 @@ postSchema.pre('remove', function(next) {
     }
   });
   //delete reference to this post in user
-  db.User.findByIdAndUpdate(post.user, {$pull: {posts: post._id}}, function(err, user) {
+  db.User.findByIdAndUpdate(post.user, {$pull: {posts: post._id}}).exe(function(err, user) {
     if (err) {
       console.log(err);
     } else {

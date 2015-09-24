@@ -1,10 +1,10 @@
 <% include ../partials/header %>
 
-  <form action="/posts/new" method="POST">
+  <form action="/posts" method="POST">
     <label>Choose a forum to include this post in:
       <select name="post[forum]">
 
-      <%= forums.forEach(function(forum) { %>
+      <% forums.forEach(function(forum) { %>
         <option value="<%= forum.name %>"><%= forum.name %></option>
       <% }); %>
 

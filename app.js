@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(session({
-  //no maxAge and activeDuraction so user can stay logged in for chat and real-time updates
+  //no maxAge and activeDuration so user can stay logged in for chat and real-time updates
   name: 'forums',
   secret: 'nkj234n@%U(4/y3gtbwr'  //random keyboard mashing
 }));

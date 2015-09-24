@@ -6,9 +6,9 @@ app.get('/', routeMiddleware.ensureLoggedIn, function(req, res) {
   res.render('index', {docTitle: 'Enter'});
 });
 
-require('./posts');
 require('./users');
 require('./forums');
+require('./posts');
 
 
 app.get('*', function(req, res) {
