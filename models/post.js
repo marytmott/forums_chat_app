@@ -48,31 +48,25 @@ postSchema.pre('save', function(next) {
   var post = this;
   post.lastUpdate = now;
   post.lastActivity = now;
-  post.save(function(err, post) {
+  db.Forum.findById(post.forum, function(err, forum) {
     if (err) {
       console.log(err);
     } else {
-      db.Forum.findById(post.forum, function(err, forum) {
+      db.User.findById(post.user, function(err, user) {
         if (err) {
           console.log(err);
         } else {
-          db.User.findById(post.user, function(err, user) {
+          user.posts.push(post);
+          user.save(function(err, user) {
             if (err) {
               console.log(err);
             } else {
-              user.posts.push(post);
-              user.save(function(err, user) {
+              forum.posts.push(post);
+              forum.lastActivity = now;
+              forum.lastActivityUser = user.username;
+              forum.save(function(err) {
                 if (err) {
                   console.log(err);
-                } else {
-                  forum.posts.push(post);
-                  forum.lastActivity = now;
-                  forum.lastActivityUser = user.username;
-                  forum.save(function(err) {
-                    if (err) {
-                      console.log(err);
-                    }
-                  });
                 }
               });
             }
