@@ -98,6 +98,18 @@ app.put('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, route
   });
 });
 
+//delete post
+app.delete('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureUserPost, function(req, res) {
+  db.Post.findOne({title: req.params.post_title}, function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      post.remove();
+      res.redirect('/forums/' + req.params.forum_name);
+    }
+  });
+});
+
 //get post to edit
 app.get('/forums/:forum_name/:post_title/edit', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureUserPost, function(req, res) {
   db.Post.findOne({title: req.params.post_title}).populate('forum user').exec(function(err, post) {

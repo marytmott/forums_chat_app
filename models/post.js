@@ -74,7 +74,7 @@ postSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED POST REFERENCE FROM FORUM');
+      console.log('DELETED ' + post.title + ' REFERENCE FROM ' + forum.name);
     }
   });
   //delete reference to this post in user

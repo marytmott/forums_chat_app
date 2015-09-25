@@ -6,7 +6,7 @@
     <h3><%= post.title %></h3>
     <div>
       <p>originally posted by <a href="/users/<%= post.user.username %>"><%= post.user.username %></a> on <%= post.created %>.
-        <% if (post.lastUpdate) { %>
+        <% if (post.lastUpdate.toString() !== post.created.toString()) { %>
           Edited on <%= post.lastUpdate %>.
         <% } %>
       </p> <!-- last activity/last updated? -->
