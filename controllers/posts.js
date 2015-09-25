@@ -15,7 +15,6 @@ app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
 });
 
 //create new post from general
-//need to dry this up or try some redirect thing
 app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Post.create(req.body.post, function(err, post) {
     if (err) {
@@ -82,7 +81,16 @@ app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, funct
   });
 });
 
-// app.get('/forums/:forum_name/:post_title/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
-//   db.
+//get post to edit
+app.get('/forums/:forum_name/:post_title/edit', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureUserPost, function(req, res) {
+  db.Post.findOne({title: req.params.post_title}, function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('posts/edit_post', {docTitle: post.title, post: post});
+    }
+  });
+});
 
-// });
+
+

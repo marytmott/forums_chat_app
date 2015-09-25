@@ -22,6 +22,18 @@ var routeHelpers = {
       }
     });
   },
+  ensureUserPost: function(req, res, next) {
+    db.Post.findOne({title: req.params.post_title}, function(err, post) {
+      // console.log('++++', typeof user._id);
+      if (err) {
+        console.log(err);
+      } else if (post.user == req.session.id) {
+        return next();
+      } else {
+        res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_title);
+      }
+    });
+  },
   preventSignup: function(req, res, next) {
     if (req.session.id !== null && req.session.id !== undefined) {
       res.redirect('/');
