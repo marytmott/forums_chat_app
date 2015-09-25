@@ -27,12 +27,12 @@
     </div>
   <% }); %>
   <!--add replies to each comment? will prob have to update models-->
-
+  <h4>Post a reply:</h4>
   <form action="" method="POST">
     <input type="hidden" name="comment[user]" value="<%= thisUser._id %>" />
     <input type="hidden" name="comment[post]" value="<%= post._id %>" />
     <label>
-      <textarea name="comment[content]" placeholder="Reply here..."></textarea>
+      <textarea name="comment[content]" placeholder="Your message here..."></textarea>
     </label>
     <button type="submit">Reply</button>
   </form>

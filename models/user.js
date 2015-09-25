@@ -100,7 +100,7 @@ userSchema.methods.checkPassword = function(password, callback) {
 ///middleware to delete all user's posts when account is deleted
 userSchema.pre('remove', function(next) {
   //delete all user's posts
-  db.Post.remove({user: this._id}, function(err, post) {
+  db.Post.remove({user: this._id}, function(err, posts) {
     if (err) {
       console.log(err);
     } else {
@@ -108,7 +108,7 @@ userSchema.pre('remove', function(next) {
     }
   });
   //delete all user's comments
-  db.Comment.remove({user: this._id}, function(err, comment) {
+  db.Comment.remove({user: this._id}, function(err, comments) {
     if (err) {
       console.log(err);
     } else {
