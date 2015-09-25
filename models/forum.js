@@ -31,6 +31,7 @@ forumSchema.pre('remove', function(next) {
       console.log('DELETED POSTS FROM FORUM');
     }
   });
+  //need to delete all comments too
   next();
 });
 

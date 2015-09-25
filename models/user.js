@@ -115,6 +115,7 @@ userSchema.pre('remove', function(next) {
       console.log('DELETED COMMENTS OF USER');
     }
   });
+  //need to delete all references to the user's posts in forums too
   next();
 });
 

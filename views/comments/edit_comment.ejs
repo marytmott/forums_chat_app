@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-  <p><a href="/forums/<%= forumName %>">Return to <%= forumName %>.</a></p>
+  <p><a href="/forums/<%= forumName %>/<%= comment.post.title %>">Return to <%= comment.post.title %>.</a></p>
 
   <form action="/forums/<%= forumName %>/<%= comment.post.title %>/comments/<%= comment._id %>?_method=put" method="POST">
     <label>
