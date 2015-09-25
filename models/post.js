@@ -21,7 +21,7 @@ var postSchema = mongoose.Schema({
     default: Date.now
   },
   lastUpdate: Date,
-  lastActivity: Date, //last comment or update to post
+  lastActivity: Date, //last comment on post
   lastActivityUser: String,
   forum: {
     type: mongoose.Schema.Types.ObjectId,

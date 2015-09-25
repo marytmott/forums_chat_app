@@ -83,8 +83,9 @@
 1. content (required, maxlength?)
 2. created (date, now)
 3. last updated (date)
-4. user (schema id to user)
-5. post (schema id to parent post)
+4. owner username (to update forum activity reference)
+5. user (schema id to user)
+6. post (schema id to parent post)
 
 #####Schema hooks
 - pre-remove:

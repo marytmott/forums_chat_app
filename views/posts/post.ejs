@@ -19,7 +19,7 @@
   </div>
   <% comments.forEach(function(comment) { %>
     <div>
-      <p><%= comment.user %> on <%= comment.lastUpdate %></p>
+      <p><a href="/users/<%= comment.user.username %>"><%= comment.user.username %></a> on <%= comment.lastUpdate %></p>
       <p><%= comment.content %></p>
       <% if (comment.user.username === thisUser.username) { %>
         <p><a href="#">Edit comment.</a></p>
@@ -28,7 +28,7 @@
   <% }); %>
   <!--add replies to each comment? will prob have to update models-->
   <h4>Post a reply:</h4>
-  <form action="" method="POST">
+  <form action="/forums/<%= post.forum.name %>/<%= post.title %>/comments" method="POST">
     <input type="hidden" name="comment[user]" value="<%= thisUser._id %>" />
     <input type="hidden" name="comment[post]" value="<%= post._id %>" />
     <label>

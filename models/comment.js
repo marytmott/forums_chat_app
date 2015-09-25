@@ -30,18 +30,29 @@ commentSchema.pre('save', function(next) {
   var comment = this;
   this.lastUpdate = now;
   //update forum's lastActivity
-  db.Post.findById(this.post).populate('post').exec(function(err, post) {
-    if (err) {
-      console.log(err);
-    } else {
-      db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now, lastActivityUser: this.user.username}, function(err, forum) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('UPDATED POST LAST ACTIVITY REFERENCE IN FORUM');
-        }
-      });
-    }
+  //need to find comment to get username for forum lastActivityUser
+  db.Comment.findById(this._id).populate('user').exec(function(err, comment) {
+    db.Post.findById(this.post).populate('forum').exec(function(err, post) {
+      if (err) {
+        console.log(err);
+      } else {
+        db.Forum.findByIdAndUpdate(post.forum, {lastActivity: now, lastActivityUser: comment.user.usename}, function(err, forum) {
+          if (err) {
+            console.log(err);
+          } else {
+            post.lastActivity = now;
+            post.lastActivityUser = comment.user.username;
+            post.save(function(err) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log('UPDATED POST LAST ACTIVITY REFERENCE IN FORUM');
+              }
+            });
+          }
+        });
+      }
+    });
   });
   next();
 });

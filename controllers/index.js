@@ -9,6 +9,7 @@ app.get('/', routeMiddleware.ensureLoggedIn, function(req, res) {
 require('./users');
 require('./forums');
 require('./posts');
+require('./comments');
 
 
 app.get('*', function(req, res) {
