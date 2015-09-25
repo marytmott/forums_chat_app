@@ -82,15 +82,15 @@ postSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED POST REFERENCE FROM USER');
+      console.log('DELETED ' + post.title + ' REFERENCE FROM ' + user.username);
     }
   });
   //delete all comments
-  db.Comment.remove({post: this._id}, function(err, comment) {
+  db.Comment.remove({post: this._id}, function(err, comments) {
     if (err) {
       console.log(err);
     } else {
-      console.log('DELETED POST COMMENT');
+      console.log('DELETED POST COMMENTS');
     }
   });
   next();
