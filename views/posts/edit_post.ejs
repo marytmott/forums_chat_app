@@ -1,6 +1,7 @@
 <% include ../partials/header %>
 
   <form action="/forums/<%= post.forum.name %>/<%= post.title %>?_method=put" method="POST">
+    <input type="hidden" name="post[lastActivityUser" value="thisUser.username" />
     <label>Title:
       <input type="text" name="post[title]" value="<%= post.title %>" />
     </label>

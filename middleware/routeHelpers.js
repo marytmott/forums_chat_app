@@ -34,6 +34,19 @@ var routeHelpers = {
       }
     });
   },
+  ensureUserComment: function(req, res, next) {
+    db.Comment.findById(req.params.comment_id, function(err, comment) {
+      // console.log('++++', typeof user._id);
+      console.log(comment);
+      if (err) {
+        console.log(err);
+      } else if (comment.user == req.session.id) {
+        return next();
+      } else {
+        res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_title);
+      }
+    });
+  },
   preventSignup: function(req, res, next) {
     if (req.session.id !== null && req.session.id !== undefined) {
       res.redirect('/');

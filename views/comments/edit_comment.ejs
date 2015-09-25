@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+
+  <p><a href="/forums/<%= forumName %>">Return to <%= forumName %>.</a></p>
+
+  <form action="/forums/<%= forumName %>/<%= comment.post.title %>/comments/<%= comment._id %>?_method=put" method="POST">
+    <label>
+      <textarea name="comment[content]"><%= comment.content %></textarea>
+    </label>
+    <button type="submit">Update</button>
+  </form>
+
+  <form action="/forums/<%= forumName %>/<%= comment.post.title %>/comments/<%= comment._id %>?_method=delete" method="POST">
+    <button type="submit">Delete Comment</button>
+  </form>
+
+<% include ../partials/footer %>

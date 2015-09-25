@@ -52,7 +52,7 @@ postSchema.pre('save', function(next) {
         if (err) {
           console.log(err);
         } else {
-          post.lastActivityUser = user.username;
+          // post.lastActivityUser = user.username;
           forum.lastActivity = now;
           forum.lastActivityUser = user.username;
           forum.save(function(err) {
@@ -74,6 +74,7 @@ postSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
+      console.log(forum);
       console.log('DELETED ' + post.title + ' REFERENCE FROM ' + forum.name);
     }
   });
@@ -82,6 +83,7 @@ postSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
+      console.log(user);
       console.log('DELETED ' + post.title + ' REFERENCE FROM ' + user.username);
     }
   });
@@ -90,6 +92,7 @@ postSchema.pre('remove', function(next) {
     if (err) {
       console.log(err);
     } else {
+      console.log(comments);
       console.log('DELETED POST COMMENTS');
     }
   });

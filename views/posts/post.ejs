@@ -6,7 +6,7 @@
     <h3><%= post.title %></h3>
     <div>
       <p>originally posted by <a href="/users/<%= post.user.username %>"><%= post.user.username %></a> on <%= post.created %>.
-        <% if (post.lastUpdate.toString() !== post.created.toString()) { %>
+        <% if (post.lastUpdate == post.created) { %>
           Edited on <%= post.lastUpdate %>.
         <% } %>
       </p> <!-- last activity/last updated? -->
@@ -22,7 +22,7 @@
       <p><a href="/users/<%= comment.user.username %>"><%= comment.user.username %></a> on <%= comment.lastUpdate %></p>
       <p><%= comment.content %></p>
       <% if (comment.user.username === thisUser.username) { %>
-        <p><a href="#">Edit comment.</a></p>
+        <p><a href="/forums/<%= post.forum.name %>/<%= post.title %>/comments/<%= comment._id %>/edit">Edit comment.</a></p>
       <% } %>
     </div>
   <% }); %>
