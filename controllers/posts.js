@@ -81,9 +81,26 @@ app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, funct
   });
 });
 
+//edit post
+app.put('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureUserPost, function(req, res) {
+  db.Post.findOneAndUpdate({title: req.params.post_title}, req.body.post, function(err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      post.save(function(err, post) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.redirect('/forums/:forum_name/:post_title');
+        }
+      });
+    }
+  });
+});
+
 //get post to edit
 app.get('/forums/:forum_name/:post_title/edit', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureUserPost, function(req, res) {
-  db.Post.findOne({title: req.params.post_title}, function(err, post) {
+  db.Post.findOne({title: req.params.post_title}).populate('forum user').exec(function(err, post) {
     if (err) {
       console.log(err);
     } else {

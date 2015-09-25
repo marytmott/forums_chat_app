@@ -7,7 +7,7 @@
     <div>
       <p>originally posted by <a href="/users/<%= post.user.username %>"><%= post.user.username %></a> on <%= post.created %>.
         <% if (post.lastUpdate) { %>
-          Last edited on <%= post.lastUpdate %>.
+          Edited on <%= post.lastUpdate %>.
         <% } %>
       </p> <!-- last activity/last updated? -->
       <% if (post.user.username === thisUser.username) { %>

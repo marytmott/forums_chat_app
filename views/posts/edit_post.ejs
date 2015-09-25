@@ -1,6 +1,18 @@
 <% include ../partials/header %>
 
-  //opst content
-  /delete post
+  <form action="/forums/<%= post.forum.name %>/<%= post.title %>?_method=put" method="POST">
+    <label>Title:
+      <input type="text" name="post[title]" value="<%= post.title %>" />
+    </label>
+    <label>
+      <textarea name="post[content]"><%= post.content %></textarea>
+    </label>
+    <button type="submit">Update Post</button>
+  </form>
+
+  <form action="/forums/<%= post.forum.name %>/<%= post.title %>?_method=delete" method="POST">
+    <button type="submit">Delete Post</button>
+  </form>
+  <p>Deleting your post will also delete all its comments.</p>
 
 <% include ../partials/footer %>
