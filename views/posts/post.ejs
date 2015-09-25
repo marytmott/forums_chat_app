@@ -1,11 +1,11 @@
 <% include ../partials/header %>
 
-  <p><a href="forums/<%= post.forum.name %>">Return to <%= post.forum.name %>.</a></p>
+  <p><a href="/forums/<%= post.forum.name %>">Return to <%= post.forum.name %>.</a></p>
 
   <div>
     <h3><%= post.title %></h3>
     <div>
-      <p>originally posted by <%= post.user.username %> on <%= post.created %>.
+      <p>originally posted by <a href="/users/<%= post.user.username %>"><%= post.user.username %></a> on <%= post.created %>.
         <% if (post.lastUpdate) { %>
           Last edited on <%= post.lastUpdate %>.
         <% } %>
@@ -26,7 +26,15 @@
       <% } %>
     </div>
   <% }); %>
+  <!--add replies to each comment? will prob have to update models-->
 
-  <p><a href="#">Add your comment.</a></p>
+  <form action="" method="POST">
+    <input type="hidden" name="comment[user]" value="<%= thisUser._id %>" />
+    <input type="hidden" name="comment[post]" value="<%= post._id %>" />
+    <label>
+      <textarea name="comment[content]" placeholder="Reply here..."></textarea>
+    </label>
+    <button type="submit">Reply</button>
+  </form>
 
 <% include ../partials/footer %>

@@ -18,8 +18,8 @@
 
   <div>
     <h4><%= user.username %>'s Posts:</h4>
-    <% user.posts.forEach(function(post) { %>
-      <h4><a href="/posts/<%= post.title %>"><%= post.title %></a></h4>
+    <% posts.forEach(function(post) { %>
+      <h4><a href="/forums/<%= post.forum.name %>/<%= post.title %>"><%= post.title %></a></h4>
       <p>last activity <%= post.lastActivity %> by <a href="/users/<% post.lastActivityUser %>"><%= post.lastActivityUser %></a></p>
     <% }); %>
   </div>

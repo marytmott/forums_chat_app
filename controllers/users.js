@@ -62,7 +62,13 @@ app.get('/users/:username', routeMiddleware.ensureLoggedIn, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render('users/user', {docTitle: user.username + '\'s Profile', user: user});
+      db.Post.find({user: user._id}).populate('forum').exec(function(err, posts) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render('users/user', {docTitle: user.username + '\'s Profile', user: user, posts: posts});
+        }
+      });
     }
   });
 });

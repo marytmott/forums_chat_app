@@ -67,6 +67,7 @@ app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, functio
 //get a post (and its comments)
 app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Post.findOne(req.params.post_title).populate('forum user comments').exec(function(err, post) {
+    console.log(post);
     if (err) {
       console.log(err);
     } else {
@@ -81,6 +82,7 @@ app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, funct
   });
 });
 
-app.get('/forums/:forum_name/:post_title/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
+// app.get('/forums/:forum_name/:post_title/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
+//   db.
 
-});
+// });
