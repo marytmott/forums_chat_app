@@ -112,9 +112,17 @@ app.delete('/users/:username', routeMiddleware.ensureLoggedIn, routeMiddleware.e
     if (err) {
       console.log(err);
     } else {
-      req.logout();
-      user.remove();
-      res.redirect('/');
+      //delete all user's posts
+      db.Post.find({user: user._id}).remove(function(err, posts) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('DELETED USER POSTS');
+          req.logout();
+          user.remove();
+          res.redirect('/');
+        }
+      });
     }
   });
 });
