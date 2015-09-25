@@ -91,7 +91,7 @@ app.put('/users/:username', routeMiddleware.ensureLoggedIn, routeMiddleware.ensu
         //change pw on separate page?
         user.password = req.body.user.password || user.password;
         user.avatar = req.body.user.avatar || user.avatar;
-        user.persComment = req.body.user.persComment || user.persComment;
+        user.persComment = req.body.user.persComment;
         user.save(function(err, updatedUser) {
           if (err) {
             console.log(err);

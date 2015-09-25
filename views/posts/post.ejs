@@ -15,12 +15,18 @@
 
       <% } %>
       <p><%= post.content %></p>
+      <% if (post.user.persComment) { %>
+        <p><%= post.user.persComment %></p>
+      <% } %>
     </div>
   </div>
   <% comments.forEach(function(comment) { %>
     <div>
       <p><a href="/users/<%= comment.user.username %>"><%= comment.user.username %></a> on <%= comment.lastUpdate %></p>
       <p><%= comment.content %></p>
+      <% if (comment.user.persComment) { %>
+        <p><%= comment.user.persComment %></p>
+      <% } %>
       <% if (comment.user.username === thisUser.username) { %>
         <p><a href="/forums/<%= post.forum.name %>/<%= post.title %>/comments/<%= comment._id %>/edit">Edit comment.</a></p>
       <% } %>

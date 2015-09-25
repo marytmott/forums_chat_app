@@ -59,7 +59,7 @@ var routeHelpers = {
   emptyBody: function(reqSpec) {
     console.log('HERE', reqSpec);
     for (var property in reqSpec) {
-      if (reqSpec[property]) {
+      if (property === 'persComment' || reqSpec[property]) { //skip personal comment since it is not placeheld styled
         //as soon as a value is found, will break out of function and return true
         return true;
       } else {
