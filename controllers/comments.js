@@ -28,7 +28,23 @@ app.post('/forums/:forum_name/:post_name/comments', routeMiddleware.ensureLogged
                     if (err) {
                       console.log(err);
                     } else {
-                      res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
+                      //update forum last activity
+                      db.Forum.findById(post.forum, function(err, forum) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          //this is not working
+                          forum.lastActivity = new Date();
+                          forum.lastActivityUser = user.username;
+                          forum.save(function(err) {
+                            if (err) {
+                              console.log(err);
+                            } else {
+                              res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
+                            }
+                          });
+                        }
+                      });
                     }
                   });
                 }

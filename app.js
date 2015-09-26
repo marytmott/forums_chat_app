@@ -1,11 +1,12 @@
 var express = require('express');
+app = express(); //universal variable
 var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('cookie-session');
 var loginMiddleware = require('./middleware/loginHelpers');
-
-app = express();
+var io = require('socket.io');
+var http = require('http').Server(app);
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
