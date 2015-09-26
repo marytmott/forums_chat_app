@@ -54,7 +54,7 @@ postSchema.pre('save', function(next) {
         } else {
           // post.lastActivityUser = user.username;
           forum.lastActivity = now;
-          forum.lastActivityUser = user.username;
+          // forum.lastActivityUser = user.username;
           forum.save(function(err) {
             if (err) {
               console.log(err);

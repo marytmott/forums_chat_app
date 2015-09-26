@@ -43,13 +43,22 @@ commentSchema.pre('save', function(next) {
             if (err) {
               console.log(err);
             } else {
+              console.log(comment.user.username, 'WHAT');
               post.lastActivity = now;
               post.lastActivityUser = comment.user.username;
               post.save(function(err) {
                 if (err) {
                   console.log(err);
                 } else {
-                  console.log('UPDATED POST LAST ACTIVITY REFERENCE IN FORUM');
+                  // forum.lastActivity = now();
+                  forum.lastActivityUser = comment.user.username;
+                  forum.save(function(err, forum) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log('UPDATED POST LAST ACTIVITY REFERENCE IN FORUM');
+                    }
+                  });
                 }
               });
             }
