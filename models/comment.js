@@ -39,6 +39,7 @@ commentSchema.pre('save', function(next) {
         if (err) {
           console.log(err);
         } else {
+          console.log(comment.user.username, "TESTING COMMENT SAVE");
           db.Forum.findByIdAndUpdate(post.forum._id, {lastActivity: now, lastActivityUser: comment.user.usename}, function(err, forum) {
             if (err) {
               console.log(err);
@@ -50,7 +51,9 @@ commentSchema.pre('save', function(next) {
                 if (err) {
                   console.log(err);
                 } else {
-                  // forum.lastActivity = now(); //this is done in post pre-save
+                                // console.log(comment.user.username, 'WHAT');
+
+                  forum.lastActivity = now(); //this is done in post pre-save
                   forum.lastActivityUser = comment.user.username;
                   forum.save(function(err, forum) {
                     if (err) {

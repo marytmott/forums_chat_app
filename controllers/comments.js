@@ -23,12 +23,25 @@ app.post('/forums/:forum_name/:post_name/comments', routeMiddleware.ensureLogged
                   console.log(err);
                 } else {
                   post.comments.push(comment);
-                  post.lastActivityUser = user.username;
+                  post.lastActivityUser = res.locals.thisUser.username;
                   post.save(function(err, post) {
                     if (err) {
                       console.log(err);
                     } else {
-                      res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
+                      // db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
+                      //   if (err) {
+                      //     console.log(err);
+                      //   } else {
+                      //     forum.lastActivityUser = res.locals.thisUser.username;
+                      //     forum.save(function(err) {
+                      //       if (err) {
+                      //         console.log(err);
+                      //       } else {
+                              res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
+                      //       }
+                      //     });
+                      //   }
+                      // });
                     }
                   });
                 }

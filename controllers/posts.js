@@ -34,7 +34,7 @@ app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
                   console.log(err);
                 } else {
                   forum.posts.push(post);
-                  forum.lastActivityUser = user.username;
+                  forum.lastActivityUser = res.locals.thisUser.username;
                   forum.save(function(err, forum) {
                     if (err) {
                       console.log(err);
@@ -66,8 +66,6 @@ app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, functio
 
 //get a post (and its comments)
 app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, function(req, res) {
-    console.log(req.params.post_title, 'POSTTTTT');
-
   db.Post.findOne({title: req.params.post_title}).populate('forum user comments').exec(function(err, post) {
     // console.log(post);
     if (err) {
@@ -99,7 +97,7 @@ app.put('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, route
             if (err) {
               console.log(err);
             } else {
-              forum.lastActivityUser = res.locals.user.username;
+              forum.lastActivityUser = res.locals.thisUser.username;
               forum.save(function(err) {
                 if (err) {
                   console.log(err);
