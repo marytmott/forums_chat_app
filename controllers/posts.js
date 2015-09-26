@@ -16,6 +16,7 @@ app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
 
 //create new post from general
 app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
+  // console.log(typeof res.locals.thisUser.username);
   db.Post.create(req.body.post, function(err, post) {
     if (err) {
       console.log(err);
@@ -66,18 +67,23 @@ app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, functio
 
 //get a post (and its comments)
 app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, function(req, res) {
+  console.log(req.params.post_title);
   db.Post.findOne({title: req.params.post_title}).populate('forum user comments').exec(function(err, post) {
     // console.log(post);
     if (err) {
       console.log(err);
     } else {
-      db.Comment.find({post: post._id}).populate('user').exec(function(err, comments) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.render('posts/post', {docTitle: post.title, post: post, comments: comments});
-        }
-      });
+      if (post.comments) {
+        db.Comment.find({post: post._id}).populate('user').exec(function(err, comments) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.render('posts/post', {docTitle: post.title, post: post, comments: comments});
+          }
+        });
+      } else {
+        res.render('posts/post', {docTitle: post.title, post: post});
+      }
     }
   });
 });
@@ -102,7 +108,7 @@ app.put('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, route
                 if (err) {
                   console.log(err);
                 } else {
-                  res.redirect('/forums/:forum_name/:post_title');
+                  res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_title);
                 }
               });
             }

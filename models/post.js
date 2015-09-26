@@ -53,9 +53,7 @@ postSchema.pre('save', function(next) {
           console.log(err);
         } else {
 
-          //if lastAtivity !== date.now? (means already updated)
-
-
+          //if lastAtivity
           // post.lastActivityUser = user.username; // don't do this or it will override comment post/put
           forum.lastActivity = now;
           // forum.lastActivityUser = user.username; // don't do this or it will override comment post/put
