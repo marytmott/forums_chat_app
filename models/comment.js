@@ -50,7 +50,7 @@ commentSchema.pre('save', function(next) {
                 if (err) {
                   console.log(err);
                 } else {
-                  // forum.lastActivity = now();
+                  // forum.lastActivity = now(); //this is done in post pre-save
                   forum.lastActivityUser = comment.user.username;
                   forum.save(function(err, forum) {
                     if (err) {

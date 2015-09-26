@@ -54,7 +54,7 @@ app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
 
 //form to make a new post
 app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
-  db.Forum.findOne(req.params.forum_name, function(err, forum) {
+  db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
     if (err) {
       console.log(err);
     } else {
@@ -66,7 +66,9 @@ app.get('/forums/:forum_name/posts/new', routeMiddleware.ensureLoggedIn, functio
 
 //get a post (and its comments)
 app.get('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, function(req, res) {
-  db.Post.findOne(req.params.post_title).populate('forum user comments').exec(function(err, post) {
+    console.log(req.params.post_title, 'POSTTTTT');
+
+  db.Post.findOne({title: req.params.post_title}).populate('forum user comments').exec(function(err, post) {
     // console.log(post);
     if (err) {
       console.log(err);
@@ -92,7 +94,21 @@ app.put('/forums/:forum_name/:post_title', routeMiddleware.ensureLoggedIn, route
         if (err) {
           console.log(err);
         } else {
-          res.redirect('/forums/:forum_name/:post_title');
+          //update Forum activity
+          db.Forum.findById(post.forum, function(err, forum) {
+            if (err) {
+              console.log(err);
+            } else {
+              forum.lastActivityUser = res.locals.user.username;
+              forum.save(function(err) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  res.redirect('/forums/:forum_name/:post_title');
+                }
+              });
+            }
+          });
         }
       });
     }

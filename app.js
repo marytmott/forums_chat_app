@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('cookie-session');
 var loginMiddleware = require('./middleware/loginHelpers');
-var io = require('socket.io');
-var http = require('http').Server(app);
+// var server = require('http').Server(app);
+// var io = require('socket.io')(app);
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -18,6 +18,14 @@ app.use(session({
   secret: 'nkj234n@%U(4/y3gtbwr'  //random keyboard mashing
 }));
 app.use(loginMiddleware);
+
+//handle socket.io in a separate middleware file?
+// io.on('connection', function(socket) {
+//   socket.emit('news', {hello: 'world'});
+//   socket.on('my other event', function(data) {
+//     console.log(data);
+//   });
+// });
 
 require('./controllers/index');
 
