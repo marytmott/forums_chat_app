@@ -31,30 +31,30 @@ commentSchema.pre('save', function(next) {
   this.lastUpdate = now;
   //update forum's lastActivity
   //need to find comment to get username for forum lastActivityUser
-  db.Comment.findById(this._id).populate('user').exec(function(err, comment) {
-    if (err) {
-      console.log(err);
-    } else {
+  // db.Comment.findById(this._id).populate('user').exec(function(err, comment) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
       db.Post.findById(comment.post).populate('forum').exec(function(err, post) {
         if (err) {
           console.log(err);
         } else {
-          console.log(comment.user.username, "TESTING COMMENT SAVE");
-          db.Forum.findByIdAndUpdate(post.forum._id, {lastActivity: now, lastActivityUser: comment.user.usename}, function(err, forum) {
+          // console.log(comment.user.username, "TESTING COMMENT SAVE");
+          db.Forum.findById(post.forum._id, function(err, forum) {
             if (err) {
               console.log(err);
             } else {
-              console.log(comment.user.username, 'WHAT');
+              // console.log(comment.user.username, 'WHAT');
               post.lastActivity = now;
-              post.lastActivityUser = comment.user.username;
+              // post.lastActivityUser = comment.user.username; //to be done on route
               post.save(function(err) {
                 if (err) {
                   console.log(err);
                 } else {
                                 // console.log(comment.user.username, 'WHAT');
 
-                  forum.lastActivity = now(); //this is done in post pre-save
-                  forum.lastActivityUser = comment.user.username;
+                  forum.lastActivity = now; //this is done in post pre-save
+                  // forum.lastActivityUser = comment.user.username;
                   forum.save(function(err, forum) {
                     if (err) {
                       console.log(err);
@@ -68,8 +68,8 @@ commentSchema.pre('save', function(next) {
           });
         }
       });
-    }
-  });
+  //   }
+  // });
   next();
 });
 

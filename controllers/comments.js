@@ -23,25 +23,25 @@ app.post('/forums/:forum_name/:post_name/comments', routeMiddleware.ensureLogged
                   console.log(err);
                 } else {
                   post.comments.push(comment);
-                  post.lastActivityUser = res.locals.thisUser.username;
+                  post.lastActivityUser = user.username;
                   post.save(function(err, post) {
                     if (err) {
                       console.log(err);
                     } else {
-                      // db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
-                      //   if (err) {
-                      //     console.log(err);
-                      //   } else {
-                      //     forum.lastActivityUser = res.locals.thisUser.username;
-                      //     forum.save(function(err) {
-                      //       if (err) {
-                      //         console.log(err);
-                      //       } else {
+                      db.Forum.findOne({name: req.params.forum_name}, function(err, forum) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          forum.lastActivityUser = user.username;
+                          forum.save(function(err, forum) {
+                            if (err) {
+                              console.log(err);
+                            } else {
                               res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
-                      //       }
-                      //     });
-                      //   }
-                      // });
+                            }
+                          });
+                        }
+                      });
                     }
                   });
                 }
@@ -67,11 +67,44 @@ app.get('/forums/:forum_name/:post_name/comments/:comment_id/edit', routeMiddlew
 
 //edit comment
 app.put('/forums/:forum_name/:post_name/comments/:comment_id', routeMiddleware.ensureLoggedIn, routeMiddleware.ensureUserComment, function(req, res) {
+  //update comment and post/forum activity
   db.Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment) {
     if (err) {
       console.log(err);
     } else {
-      comment.save();
+      comment.save(function(err, comment) {
+        if (err) {
+          console.log(err);
+        } else {
+          db.Post.findById(comment.post, function(err, post) {
+            if (err) {
+              console.log(err);
+            } else {
+              post.lastActivityUser = res.locals.thisUser.username;
+              post.save(function(err, post) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  db.Forum.findById(post.forum, function(err, forum) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      forum.lastActivityUser = res.locals.thisUser.username;
+                      forum.save(function(err, forum) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
+                        }
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
       res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
     }
   });

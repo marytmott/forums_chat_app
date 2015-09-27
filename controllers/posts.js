@@ -35,7 +35,7 @@ app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
                   console.log(err);
                 } else {
                   forum.posts.push(post);
-                  forum.lastActivityUser = res.locals.thisUser.username;
+                  forum.lastActivityUser = user.username;
                   forum.save(function(err, forum) {
                     if (err) {
                       console.log(err);
