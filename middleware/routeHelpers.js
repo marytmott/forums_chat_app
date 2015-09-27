@@ -57,7 +57,6 @@ var routeHelpers = {
   //function to see if user actually edited anything
   //need this b/c i'm using placeholders to show values in some places (for style)
   emptyBody: function(reqSpec) {
-    // console.log('HERE', reqSpec);
     for (var property in reqSpec) {
       if (property === 'persComment' || reqSpec[property]) { //skip personal comment since it is not placeheld styled
         //as soon as a value is found, will break out of function and return true

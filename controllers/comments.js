@@ -105,7 +105,6 @@ app.put('/forums/:forum_name/:post_name/comments/:comment_id', routeMiddleware.e
           });
         }
       });
-      res.redirect('/forums/' + req.params.forum_name + '/' + req.params.post_name);
     }
   });
 });
