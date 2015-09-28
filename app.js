@@ -21,15 +21,7 @@ app.use(loginMiddleware);
 
 require('./controllers/index');
 
-var clients = [];
-
-io.sockets.on('connect', function(client) {
-    clients.push(client);
-    console.log(clients);
-    client.on('disconnect', function() {
-        clients.splice(clients.indexOf(client), 1);
-    });
-});
+var usersOnline = [];
 
 io.on('connection', function(socket) {
   console.log("CONNECTED!")

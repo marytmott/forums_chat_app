@@ -1,7 +1,9 @@
 $(function() {
 
-  function openChat() {
-    window.open('/chat', 'Forum Chat', 'width=400, height=600, resizable =yes');
+  function openChat(e) {
+    e.preventDefault();
+    var windowObjectReference = window.open('/chat', 'Forum Chat', 'width=450, height=600, resizable=yes');
   }
 
+  $('a[href="/chat"').on('click', openChat);
 });
