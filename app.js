@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('cookie-session');
 var loginMiddleware = require('./middleware/loginHelpers');
-var server = app.listen(3034);
+var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
 app.set('view engine', 'ejs');
@@ -21,14 +21,28 @@ app.use(loginMiddleware);
 
 require('./controllers/index');
 
-io.on('connection', function(socket) {
-  socket.on('chat', function(){
-   console.log('what are you doing to my code?');
-   });
-   io.emit('chat message', msg);
+var clients = [];
+
+io.sockets.on('connect', function(client) {
+    clients.push(client);
+    console.log(clients);
+    client.on('disconnect', function() {
+        clients.splice(clients.indexOf(client), 1);
+    });
 });
 
-app.listen('3000', function() {
+io.on('connection', function(socket) {
+  console.log("CONNECTED!")
+
+  socket.on('chat message', function(msg){
+    console.log();
+    // var completeMsg = res.locals.thisUser.username + ': ' + 'chat message';
+    io.emit('chat message', msg);
+   });
+});
+
+
+server.listen('3000', function() {
   console.log('forums online on port 3000');
 });
 
