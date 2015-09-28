@@ -9,11 +9,15 @@
 
 </head>
 <body>
+  <div class="chat-status">
+    <p>Users in chat:</p>
+    <p id="chatters"></p>
+  </div>
   <div class="chat">
   <ul id="messages"></ul>
   <form action="">
     <input type="hidden" id="username" value="<%= thisUser.username %>" />
-    <input id="m" autocomplete="off" /><button>Send</button>
+    <input type="text" id="m" autocomplete="off" autofocus /><button>Send</button>
   </form>
   </div>
 

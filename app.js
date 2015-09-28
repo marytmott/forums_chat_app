@@ -21,18 +21,31 @@ app.use(loginMiddleware);
 
 require('./controllers/index');
 
-var usersOnline = [];
+var chatUsers = [];
 
 io.on('connection', function(socket) {
-  console.log("CONNECTED!")
+  var usernameStorage;
+  console.log("CONNECTED!");
 
-  socket.on('chat message', function(msg){
+  socket.on('username', function(username) {
+    usernameStorage = username;
+    io.emit('username', username);
+    io.emit('chatUsers', chatUsers);
+    console.log(usernameStorage);
+  });
+
+  socket.on('message', function(msg) {
     console.log();
-    // var completeMsg = res.locals.thisUser.username + ': ' + 'chat message';
-    io.emit('chat message', msg);
+    io.emit('message', msg);
    });
-});
 
+  socket.on('disconnect', function() {
+    var disconnected = chatUsers.indexOf(usernameStorage);
+    chatUsers.splice(disconnected, 1);
+    io.emit('user left', usernameStorage);
+    io.emit('disconnected', chatUsers);
+  });
+});
 
 server.listen('3000', function() {
   console.log('forums online on port 3000');
