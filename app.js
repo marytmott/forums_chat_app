@@ -5,9 +5,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('cookie-session');
 var loginMiddleware = require('./middleware/loginHelpers');
-var http = require('http').Server(app);
-
-app.listen('3000');
+var server = app.listen(3034);
+var io = require('socket.io').listen(server);
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -20,24 +19,16 @@ app.use(session({
 }));
 app.use(loginMiddleware);
 
-//handle socket.io in a separate middleware file?
-//var chatz = io.of('/chatz');
-
-//  io.on('connection', function(socket) {
-//    socket.on('chat', function(){
-//    console.log('what are you doing to my code?');
-//    });
-  //  io.emit('chat message', msg);
-//  });
-
-
-//io.emit('some event', { for: 'everyone' });
-
 require('./controllers/index');
-var io = require('socket.io')(http);
 
-/***
+io.on('connection', function(socket) {
+  socket.on('chat', function(){
+   console.log('what are you doing to my code?');
+   });
+   io.emit('chat message', msg);
+});
+
 app.listen('3000', function() {
   console.log('forums online on port 3000');
 });
-***/
+
