@@ -10,6 +10,7 @@ require('./users');
 require('./forums');
 require('./posts');
 require('./comments');
+require('./chat');
 
 
 app.get('*', function(req, res) {

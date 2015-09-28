@@ -15,7 +15,7 @@ var loginHelpers = function(req, res, next) {
         console.log(err);
       } else {
         res.locals.thisUser = user;
-        console.log('****LOCAL', res.locals.thisUser.username);
+        // console.log('****LOCAL', res.locals.thisUser.username);
         next();
       }
     });
