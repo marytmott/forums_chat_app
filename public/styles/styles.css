@@ -98,3 +98,33 @@ nav li {
   width: 75%;
   margin: 0 auto;
 }
+
+.form-new {
+  width: 750px;
+  margin-top: 40px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+  border: 1px solid rgb(105, 93, 70);
+}
+
+.form-new input, textarea {
+  width: 100%;
+  font-size: 14px;
+}
+
+.form-new textarea {
+  height: 200px;
+}
+
+select {
+  width: 350px;
+  font-size: 14px;
+}
+
+.center {
+  text-align: center;
+}

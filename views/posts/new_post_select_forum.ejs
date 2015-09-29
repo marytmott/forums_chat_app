@@ -1,24 +1,26 @@
 <% include ../partials/header %>
 
-  <form action="/posts" method="POST">
-    <input type="hidden" name="post[user]" value="<%= thisUser._id %>" />
-    <input type="hidden" name="post[lastActivityUser]" value="<%= thisUser.username %>" />
-    <label>Choose a forum to include this post in:
-      <select name="post[forum]">
+  <div class="form-new">
+    <form action="/posts" method="POST">
+      <input type="hidden" name="post[user]" value="<%= thisUser._id %>" />
+      <input type="hidden" name="post[lastActivityUser]" value="<%= thisUser.username %>" />
+      <label>Choose a forum to include this post in:
+        <select name="post[forum]">
 
-      <% forums.forEach(function(forum) { %>
-        <option value="<%= forum._id %>"><%= forum.name %></option>
-      <% }); %>
+        <% forums.forEach(function(forum) { %>
+          <option value="<%= forum._id %>"><%= forum.name %></option>
+        <% }); %>
 
-      </select>
-    </label>
-    <label>
-      <input type="text" name="post[title]" placeholder="title of your post" />
-    </label>
-    <label>
-      <textarea name="post[content]" placeholder="Type in here..."></textarea>
-    </label>
-    <button type="submit">Create New Post</button>
-  </form>
+        </select>
+      </label>
+      <label>
+        <input type="text" name="post[title]" placeholder="title of your post" />
+      </label>
+      <label>
+        <textarea name="post[content]" placeholder="Type in here..."></textarea>
+      </label>
+      <input type="submit" value="Create New Post" />
+    </form>
+  </div>
 
 <% include ../partials/footer %>

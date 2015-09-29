@@ -1,16 +1,18 @@
 <% include ../partials/header %>
 
-  <form action="/posts" method="POST">
-    <input type="hidden" name="post[forum]" value="<%= forum._id %>" />
-    <input type="hidden" name="post[user]" value="<%= thisUser._id %>" />
-    <input type="hidden" name="post[lastActivityUser]" value="<%= thisUser.username %>" />
-    <label>
-      <input type="text" name="post[title]" placeholder="title of your post" />
-    </label>
-    <label>
-      <textarea name="post[content]" placeholder="Type in here..."></textarea>
-    </label>
-    <button type="submit">Create New Post</button>
-  </form>
+  <div class="form-new">
+    <form action="/posts" method="POST">
+      <input type="hidden" name="post[forum]" value="<%= forum._id %>" />
+      <input type="hidden" name="post[user]" value="<%= thisUser._id %>" />
+      <input type="hidden" name="post[lastActivityUser]" value="<%= thisUser.username %>" />
+      <label>
+        <input type="text" name="post[title]" placeholder="title of your post" />
+      </label>
+      <label>
+        <textarea name="post[content]" placeholder="Type in here..."></textarea>
+      </label>
+      <input type="submit" value="Create New Post" />
+    </form>
+  </div>
 
 <% include ../partials/footer %>
