@@ -30,8 +30,8 @@ a:hover {
   padding-right: 30px;
   padding-left: 30px;
   -webkit-box-shadow: 0px 0px 10px 4px #ccc;
-  -moz-box-shadow:    0px 0px 10px 4px #ccc;
-  box-shadow:         0px 0px 10px 4px #ccc;
+  -moz-box-shadow: 0px 0px 10px 4px #ccc;
+  box-shadow: 0px 0px 10px 4px #ccc;
 }
 
 input {
@@ -44,6 +44,7 @@ input {
 input[type="submit"] {
   font-size: 18px;
   color:rgb(105, 93, 70);
+  font-family: 'Arimo', sans-serif;
 }
 
 p {

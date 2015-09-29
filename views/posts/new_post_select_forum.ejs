@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-  <div class="form-new">
+  <div class="form-large">
     <form action="/posts" method="POST">
       <input type="hidden" name="post[user]" value="<%= thisUser._id %>" />
       <input type="hidden" name="post[lastActivityUser]" value="<%= thisUser.username %>" />

@@ -1,9 +1,9 @@
 <% include ../partials/header %>
 
   <div class="user-card">
-    <div>
+<!--     <div>
       <img src="http://placehold.it/150x150" />
-    </div>
+    </div> -->
     <div>
       <form action="/users/<%= user.username %>?_method=put" method="POST">
         <label>Change your username:
@@ -15,23 +15,19 @@
         <label>Change your password:
           <input type="password" name="user[password]" />
         </label>
-        <label>Update your avatar:
+<!--         <label>Update your avatar:
           <input type="file" accept="image/*" name="user[avatar]" />
-        </label>
+        </label> -->
         <label>Edit your personal comment (to be displayed on your posts):
           <textarea name="user[persComment]"><%= user.persComment %></textarea>
         </label>
         <button type="submit">Update My Profile</button>
       </form>
     </div>
-    <br />
-    <br />
-    <div>
       <form action="/users/<%= user.username %>?_method=delete" method="POST">
         <button type="submit">Delete My Account</button>
         <p>Deleting your account will also delete all your posts and comments.</p>
       </form>
     </div>
-  </div>
 
 <% include ../partials/footer %>
