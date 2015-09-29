@@ -2,18 +2,25 @@
 <html>
 <head>
   <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+  <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/styles/logged-out.css" />
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 </head>
 <body>
 
-  <form action="/login" method="POST">
-    <label>
-      <input type="text" name="user[username]" placeholder="enter your username" autofocus `/>
-    </label>
-    <label>
-      <input type="password" name="user[password]" placeholder="enter your password" />
-    </label>
-    <button type="submit">Login</button>
-  </form>
+  <div class="user-form">
+    <form action="/login" method="POST">
+      <label>
+        <input type="text" name="user[username]" placeholder="enter your username" autofocus `/>
+      </label>
+      <label>
+        <input type="password" name="user[password]" placeholder="enter your password" />
+      </label>
+      <input type="submit" value="Log In" />
+    </form>
+  </div>
   <p><a href="/signup">Sign up</a> for an account.</p>
+
 
 <% include ../partials/footer %>

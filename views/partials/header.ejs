@@ -2,24 +2,30 @@
 <html>
 <head>
   <title><%= docTitle %></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+  <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/styles/styles.css" />
   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="/scripts/script.js"></script>
 </head>
 <body>
   <header>
     <nav>
-      <ul>
-        <li><img src="http://placehold.it/30x30" /></li>
-        <li><a href="/users/<%= thisUser.username %>"><%= thisUser.username %></a></li>
-      </ul>
-      <ul>
-        <li><a href="/">main</a></li>
-        <li><a href="/forums">all forums</a></li>
-        <li><a href="/posts/new">create new post</a></li>
-        <li><a href="/users">users</a></li>
-        <li><a href="/chat">open forum chat</a></li>
-        <li><a href="/logout">sign out</a></li>
-      </ul>
+      <div class="left">
+        <ul>
+         <!--  <li><img src="http://placehold.it/30x30" /></li> -->
+          <li><a href="/users/<%= thisUser.username %>"><%= thisUser.username %></a></li>
+        </ul>
+      </div>
+      <div class="right">
+        <ul class="menu">
+          <li><a href="/">main</a></li>
+          <li><a href="/forums">all forums</a></li>
+          <li><a href="/posts/new">create new post</a></li>
+          <li><a href="/users">users</a></li>
+          <li><a href="/chat">open forum chat</a></li>
+          <li><a href="/logout">sign out</a></li>
+        </ul>
+      </div>
     </nav>
-  <!--navebar-->
   </header>

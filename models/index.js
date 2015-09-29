@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 
-mongoose.connect('mongodb://localhost/forums_chat_app');
+mongoose.connect(process.env.MONGOLAB_URI ||'mongodb://localhost/forums_chat_app');
 mongoose.set('debug', true);
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(callback) {

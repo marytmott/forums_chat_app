@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+  <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/styles/logged-out.css" />
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 </head>
 <body>
 
-  <form action="/signup" method="POST">
-    <label>
-      <input type="text" name="user[username]" placeholder="Enter a username" autofocus />
-    </label>
-    <label>
-      <input type="text" name="user[email]" placeholder="Enter your email" />
-    </label>
-    <label>
-      <input type="password" name="user[password]" placeholder="Enter a password" />
-    </label>
-    <button type="submit">Sign Up</button>
-  </form>
+  <div class="user-form">
+    <form action="/signup" method="POST" class="">
+      <label>
+        <input type="text" name="user[username]" placeholder="Enter a username" autofocus />
+      </label>
+      <label>
+        <input type="text" name="user[email]" placeholder="Enter your email" />
+      </label>
+      <label>
+        <input type="password" name="user[password]" placeholder="Enter a password" />
+      </label>
+      <input type="submit" value="Sign up" />
+    </form>
+  </div>
 
 <% include ../partials/footer %>

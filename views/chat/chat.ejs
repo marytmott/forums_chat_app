@@ -9,16 +9,20 @@
 
 </head>
 <body>
-  <div class="chat-status">
-    <p>Users in chat:</p>
-    <p id="chatters"></p>
-  </div>
+  <header>
+    <div id="chat-status">
+      <h5>Users in chat:</h5>
+      <p id="chatters"></p>
+    </div>
+  </header>
+
   <div class="chat">
-  <ul id="messages"></ul>
-  <form action="">
-    <input type="hidden" id="username" value="<%= thisUser.username %>" />
-    <input type="text" id="m" autocomplete="off" autofocus /><button>Send</button>
-  </form>
+    <ul id="chat"></ul>
+    <form action="">
+      <input type="hidden" id="username" value="<%= thisUser.username %>" />
+      <input type="text" id="m" autocomplete="off" autofocus />
+      <button>Send</button>
+    </form>
   </div>
 
 </body>

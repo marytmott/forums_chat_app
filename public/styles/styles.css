@@ -1,0 +1,100 @@
+/*afternoon chai
+unlike
+view over the town
+green dark blue
+*/
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+  color: rgb(105, 93, 70);
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(255, 83, 52);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: rgb(194, 70, 2);
+}
+
+header {
+  background-color: rgb(219, 219, 219);
+  margin: 0;
+  padding: 12px;
+  border-bottom: 1px solid rgb(105, 93, 70);
+  -webkit-box-shadow: 0px 0px 10px 4px #ccc;
+  -moz-box-shadow:    0px 0px 10px 4px #ccc;
+  box-shadow:         0px 0px 10px 4px #ccc;
+}
+
+nav ul {
+  list-style-type: none;
+  display: inline;
+}
+
+nav li {
+  display: inline;
+}
+
+.left {
+  display: inline-block;
+  width: 24%;
+}
+
+.right {
+  display: inline-block;
+  width: 75%;
+  text-align: right;
+}
+
+.menu {
+  text-align: right;
+}
+
+.menu li {
+  padding-left: 20px;
+}
+
+.main {
+  width: 85%;
+  margin-top: 40px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.forum-space {
+  background-color: rgba(219, 219, 219, .75);
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 15px;
+}
+
+.form-container {
+  width: 500px;
+  margin-top: 40px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+  border: 1px solid rgb(105, 93, 70);
+}
+
+.form-container input {
+  width: 75%;
+  margin: 0 auto;
+}

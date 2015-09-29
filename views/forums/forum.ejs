@@ -1,19 +1,21 @@
 <% include ../partials/header %>
 
-  <p><a href="/forums/<%= forum.name %>/posts/new">Post to this forum.</a></p>
-  <% forum.posts.forEach(function(post) { %>
+  <div class="main">
+    <p><a href="/forums/<%= forum.name %>/posts/new">Post to this forum.</a></p>
+    <% forum.posts.forEach(function(post) { %>
 
-    <div>
-      <h4><a href="/forums/<%= forum.name %>/<%= post.title %>"><%= post.title %></a></h4>
-      <% if (post.lastActivity) { %>
+      <div class="forum-space">
+        <h5><a href="/forums/<%= forum.name %>/<%= post.title %>"><%= post.title %></a></h5>
+        <% if (post.lastActivity) { %>
 
-        <p>last activity <%= post.lastActivity %> by <a href="/users/<%= post.lastActivityUser %>"><%= post.lastActivityUser %></a></p>
+          <p>last activity <%= post.lastActivity %> by <a href="/users/<%= post.lastActivityUser %>"><%= post.lastActivityUser %></a></p>
 
-      <% } %>
-    </div>
+        <% } %>
+      </div>
 
-  <% }) %>
+    <% }) %>
 
-  <p><a href="/forums/<%= forum.name %>/edit">Rename or delete this forum.</a></p>
+    <p><a href="/forums/<%= forum.name %>/edit">Rename or delete this forum.</a></p>
+  </div>
 
 <% include ../partials/footer %>

@@ -1,12 +1,16 @@
 <% include ../partials/header %>
 
-  <p><a href="/forums/new">Create a new forum.</a></p>
+  <div class="main">
+    <p><a href="/forums/new">Create a new forum.</a></p>
 
-  <% forums.forEach(function(forum) { %>
-    <h4><a href="/forums/<%= forum.name %>"><%= forum.name %></a></h4>
-    <% if (forum.lastActivity) { %>
-    <p>last activity <%= forum.lastActivity %> by <a href="/users/<%= forum.lastActivityUser %>"><%= forum.lastActivityUser %></a></p>
-    <% } %>
-  <%  }); %>
+    <% forums.forEach(function(forum) { %>
+      <div class="forum-space">
+        <h5><a href="/forums/<%= forum.name %>"><%= forum.name %></a></h5>
+        <% if (forum.lastActivity) { %>
+        <p>last activity <%= forum.lastActivity %> by <a href="/users/<%= forum.lastActivityUser %>"><%= forum.lastActivityUser %></a></p>
+      </div>
+      <% } %>
+    <%  }); %>
+  </div>
 
 <% include ../partials/footer %>

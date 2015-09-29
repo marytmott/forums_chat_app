@@ -1,0 +1,52 @@
+/*afternoon chai
+unlike
+view over the town
+*/
+
+body {
+  color: rgb(105, 93, 70);
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(255, 83, 52);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: rgb(194, 70, 2);
+}
+
+.user-form {
+  width: 350px;
+  margin: 0 auto;
+  margin-top: 100px;
+  border: 1px solid rgb(105, 93, 70);
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+  -webkit-box-shadow: 0px 0px 10px 4px #ccc;
+  -moz-box-shadow:    0px 0px 10px 4px #ccc;
+  box-shadow:         0px 0px 10px 4px #ccc;
+}
+
+input {
+  width: 100%;
+  font-size: 14px;
+  font-family: 'Arimo', sans-serif;
+  color: rgb(105, 93, 70);
+}
+
+input[type="submit"] {
+  font-size: 18px;
+  color:rgb(105, 93, 70);
+}
+
+p {
+  text-align: center;
+  margin: 5px;
+}

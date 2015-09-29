@@ -29,6 +29,7 @@ io.on('connection', function(socket) {
 
   socket.on('username', function(username) {
     usernameStorage = username;
+    chatUsers.push(username);
     io.emit('username', username);
     io.emit('chatUsers', chatUsers);
     console.log(usernameStorage);
@@ -47,7 +48,5 @@ io.on('connection', function(socket) {
   });
 });
 
-server.listen('3000', function() {
-  console.log('forums online on port 3000');
-});
+server.listen(process.env.PORT || '3000');
 

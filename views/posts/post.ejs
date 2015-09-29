@@ -1,46 +1,48 @@
 <% include ../partials/header %>
 
-  <p><a href="/forums/<%= post.forum.name %>">Return to <%= post.forum.name %>.</a></p>
+  <div class="main">
+    <p><a href="/forums/<%= post.forum.name %>">Return to <%= post.forum.name %>.</a></p>
 
-  <div>
-    <h3><%= post.title %></h3>
     <div>
-      <p>originally posted by <a href="/users/<%= post.user.username %>"><%= post.user.username %></a> on <%= post.created %>.
-        <% if (post.lastUpdate == post.created) { %>
-          Edited on <%= post.lastUpdate %>.
+      <h3><%= post.title %></h3>
+      <div>
+        <p>originally posted by <a href="/users/<%= post.user.username %>"><%= post.user.username %></a> on <%= post.created %>.
+          <% if (post.lastUpdate == post.created) { %>
+            Edited on <%= post.lastUpdate %>.
+          <% } %>
+        </p> <!-- last activity/last updated? -->
+        <% if (post.user.username === thisUser.username) { %>
+          <p><a href="/forums/<%= post.forum.name %>/<%= post.title %>/edit">Edit post.</a></p>
+
         <% } %>
-      </p> <!-- last activity/last updated? -->
-      <% if (post.user.username === thisUser.username) { %>
-        <p><a href="/forums/<%= post.forum.name %>/<%= post.title %>/edit">Edit post.</a></p>
-
-      <% } %>
-      <p><%= post.content %></p>
-      <% if (post.user.persComment) { %>
-        <p><%= post.user.persComment %></p>
-      <% } %>
+        <p><%= post.content %></p>
+        <% if (post.user.persComment) { %>
+          <p><%= post.user.persComment %></p>
+        <% } %>
+      </div>
     </div>
+    <% comments.forEach(function(comment) { %>
+      <div>
+        <p><a href="/users/<%= comment.user.username %>"><%= comment.user.username %></a> on <%= comment.lastUpdate %></p>
+        <p><%= comment.content %></p>
+        <% if (comment.user.persComment) { %>
+          <p><%= comment.user.persComment %></p>
+        <% } %>
+        <% if (comment.user.username === thisUser.username) { %>
+          <p><a href="/forums/<%= post.forum.name %>/<%= post.title %>/comments/<%= comment._id %>/edit">Edit comment.</a></p>
+        <% } %>
+      </div>
+    <% }); %>
+    <!--add replies to each comment? will prob have to update models-->
+    <h4>Post a reply:</h4>
+    <form action="/forums/<%= post.forum.name %>/<%= post.title %>/comments" method="POST">
+      <input type="hidden" name="comment[user]" value="<%= thisUser._id %>" />
+      <input type="hidden" name="comment[post]" value="<%= post._id %>" />
+      <label>
+        <textarea name="comment[content]" placeholder="Your message here..."></textarea>
+      </label>
+      <button type="submit">Reply</button>
+    </form>
   </div>
-  <% comments.forEach(function(comment) { %>
-    <div>
-      <p><a href="/users/<%= comment.user.username %>"><%= comment.user.username %></a> on <%= comment.lastUpdate %></p>
-      <p><%= comment.content %></p>
-      <% if (comment.user.persComment) { %>
-        <p><%= comment.user.persComment %></p>
-      <% } %>
-      <% if (comment.user.username === thisUser.username) { %>
-        <p><a href="/forums/<%= post.forum.name %>/<%= post.title %>/comments/<%= comment._id %>/edit">Edit comment.</a></p>
-      <% } %>
-    </div>
-  <% }); %>
-  <!--add replies to each comment? will prob have to update models-->
-  <h4>Post a reply:</h4>
-  <form action="/forums/<%= post.forum.name %>/<%= post.title %>/comments" method="POST">
-    <input type="hidden" name="comment[user]" value="<%= thisUser._id %>" />
-    <input type="hidden" name="comment[post]" value="<%= post._id %>" />
-    <label>
-      <textarea name="comment[content]" placeholder="Your message here..."></textarea>
-    </label>
-    <button type="submit">Reply</button>
-  </form>
 
 <% include ../partials/footer %>
