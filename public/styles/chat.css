@@ -36,6 +36,10 @@ p {
   overflow: auto;
 }
 
+#chat {
+  margin-bottom: 25px;
+}
+
 #chat li {
   padding: 4px 10px;
 }

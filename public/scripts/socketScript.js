@@ -3,6 +3,14 @@ $(function() {
 
   var socket = io();
   var username = $('#username').val();
+
+  function autoScrollBottom() {
+    //have to scroll something that is scrollable; form fixed to bottom is not scrollable
+    var $body = $('body');
+    $body.scrollTop($body[0].scrollHeight);
+  }
+
+
   socket.emit('username', username);
 
   //user joins chat
@@ -19,10 +27,11 @@ $(function() {
   socket.on('username', function(username) {
     var userJoined = username + ' joined chat.';
     $('#chat').append($('<li>').text(userJoined));
+    autoScrollBottom();
   });
 
   //user sends message
-  $('form').submit(function(){
+  $('form').submit(function() {
     var userMsg = username + ': ' + $('#m').val()
     socket.emit('message', userMsg);
     $('#m').val('');
@@ -30,13 +39,14 @@ $(function() {
   });
   socket.on('message', function(msg) {
     $('#chat').append($('<li>').text(msg));
+    autoScrollBottom();
   });
 
   //user leaves chat
   socket.on('user left', function(username) {
     var userLeft = username + ' left chat.';
     $('#chat').append($('<li>').text(userLeft));
-
+    autoScrollBottom();
   });
   socket.on('disconnected', function(chatUsers) {
     console.log(chatUsers);
@@ -47,5 +57,6 @@ $(function() {
       }
     });
     $('#chatters').html(chatters);
+    autoScrollBottom();
   });
 });
